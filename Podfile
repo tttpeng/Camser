@@ -1,0 +1,6 @@
+pod 'AVOSCloud'
+pod 'AVOSCloudSNS'
+pod 'MBProgressHUD'
+pod 'SDWebImage'
+pod 'afnetworking'
+pod 'QBImagePickerController'
