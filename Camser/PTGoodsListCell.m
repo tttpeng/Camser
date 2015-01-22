@@ -52,6 +52,7 @@
         [self setContentView];
     }
     return self;
+
 }
 
 

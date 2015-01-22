@@ -49,7 +49,6 @@
     self.locationField.leftViewMode = UITextFieldViewModeAlways;
     self.locationField.leftView = leftBackView1;
     
-    
     UIView *leftBackView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     UIImageView *leftView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_phone"]];
     leftView2.tintColor = [UIColor grayColor];
@@ -211,10 +210,10 @@
         } progressBlock:^(NSInteger percentDone) {
             NSLog(@"上传进度%ld",(long)percentDone);
         }];
-
+        
     }
-
-  
+    
+    
 }
 
 - (void)updateMessage
@@ -233,6 +232,13 @@
     [oneGoods setObject:userid forKey:@"userid"];
     [oneGoods save];
     
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tv willSelectRowAtIndexPath:(NSIndexPath *)path
+{
+    //根据 NSIndexPath判定行是否可选。
+    return nil;
 }
 @end
 
