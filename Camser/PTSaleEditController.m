@@ -35,7 +35,7 @@
     
     
     UIView *leftBackView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    UIImageView *leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_rmb"]];
+    UIImageView *leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_rmb1"]];
     leftView.frame = CGRectMake(10, 12, 20, 20);
     [leftBackView addSubview:leftView];
     self.priceField.leftViewMode = UITextFieldViewModeAlways;
@@ -43,14 +43,14 @@
     
     
     UIView *leftBackView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    UIImageView *leftView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_location"]];
+    UIImageView *leftView1 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_location1"]];
     leftView1.frame = CGRectMake(12, 12, 16, 20);
     [leftBackView1 addSubview:leftView1];
     self.locationField.leftViewMode = UITextFieldViewModeAlways;
     self.locationField.leftView = leftBackView1;
     
     UIView *leftBackView2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    UIImageView *leftView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_phone"]];
+    UIImageView *leftView2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_phone1"]];
     leftView2.tintColor = [UIColor grayColor];
     leftView2.frame = CGRectMake(10, 12, 20, 20);
     [leftBackView2 addSubview:leftView2];
@@ -158,7 +158,7 @@
     [self.imageScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     CGFloat imageViewWH = 93.0f;
     for (int i = 0; i < self.imageArray.count; i ++) {
-        PTGoodsPhotoItem *photoItem = [[PTGoodsPhotoItem alloc] initWithFrame:CGRectMake(imageViewWH * i, 0, imageViewWH, imageViewWH)];
+        PTGoodsPhotoItem *photoItem = [[PTGoodsPhotoItem alloc] initWithFrame:CGRectMake(imageViewWH * i, 10, imageViewWH, imageViewWH)];
         UIImage *image = [self.imageArray objectAtIndex:i];
         photoItem.index = i;
         photoItem.contentImage = image;
