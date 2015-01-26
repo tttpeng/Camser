@@ -20,6 +20,8 @@
 }
 
 -(void)setContentImage:(UIImage *)contentImage{
+    
+    _contentImage = contentImage;
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 4, self.frame.size.width - 7, self.frame.size.height - 8)];
     imageView.backgroundColor = [UIColor orangeColor];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -32,13 +34,16 @@
     deleteIcon.center = CGPointMake(85, 4);
     [self addSubview:deleteIcon];
     
-    UIButton *uploadBtn = [[UIButton alloc]init];
-    uploadBtn.frame = imageView.frame;
-    uploadBtn.backgroundColor = [UIColor grayColor];
-    uploadBtn.alpha = 0.8;
-    [uploadBtn setTitle:@"正在上传" forState:UIControlStateNormal];
-    self.uploadBtn = uploadBtn;
-    [self addSubview:uploadBtn];
+    if (!self.isUpload) {
+        UIButton *uploadBtn = [[UIButton alloc]init];
+        uploadBtn.frame = imageView.frame;
+        uploadBtn.backgroundColor = [UIColor grayColor];
+        uploadBtn.alpha = 0.8;
+        [uploadBtn setTitle:@"正在上传" forState:UIControlStateNormal];
+        self.uploadBtn = uploadBtn;
+        [self addSubview:uploadBtn];
+    }
+
     
     UIButton *btnDelete = [UIButton buttonWithType:UIButtonTypeCustom];
     btnDelete.bounds = CGRectMake(0, 0, 60,60);
@@ -54,6 +59,7 @@
  删除图片
  */
 -(void)deletePhotoItem:(UIButton *)sender{
+    
     if([self.delegate respondsToSelector:@selector(goodsPhotoItemView:didSelectDeleteButtonAtIndex:)]){
         [self.delegate goodsPhotoItemView:self didSelectDeleteButtonAtIndex:sender.tag];
     }

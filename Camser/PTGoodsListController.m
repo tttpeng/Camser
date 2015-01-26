@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.680 alpha:1.000];
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.820 alpha:1.000];
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -30,25 +30,16 @@
     [self setupRefresh];
 }
 
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (NSMutableArray *)goods
 {
     if (_goods == nil) {
-        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        query.limit = 5;
-        [query orderByDescending:@"createdAt"];
+        AVQuery *query = [self obtainData];
         NSInteger count = query.countObjects;
         NSLog(@"一共多少条数据%ld",(long)count);
         self.total = count;
         NSMutableArray *allGood = [NSMutableArray array];
         NSArray *ditArray = [query findObjects];
+      
         for (NSDictionary *dict in ditArray) {
             PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
             [allGood addObject:goodList];
@@ -60,14 +51,17 @@
 }
 
 
-- (void)setData
+- (AVQuery *)obtainData
 {
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    query.limit = 5;
+    [query includeKey:@"imageArray"];
+    [query orderByDescending:@"createdAt"];
     
+    return query;
     
 }
-
-
-
 
 /**
  *  集成刷新控件
@@ -75,10 +69,8 @@
 - (void)setupRefresh
 {
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
-    //    [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing)];
     // dateKey用于存储刷新时间，可以保证不同界面拥有不同的刷新时间
     [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing) dateKey:@"table"];
-#warning 自动刷新(一进入程序就下拉刷新)
     [self.tableView headerBeginRefreshing];
     
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
@@ -96,59 +88,14 @@
 
 
 
-- (void)setupRefresh1
-{
-    // 1.添加下拉刷新控件
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [self.tableView addSubview:refreshControl];
-    
-    [refreshControl addTarget:self action:(@selector(refreshControlStateChange:)) forControlEvents:UIControlEventValueChanged];
-    //    [self loadNewStatus];
-}
--(void)refreshControlStateChange:(UIRefreshControl *)refreshControl
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        
-        NSInteger count = [query countObjects];
-        if (count > self.total) {
-            
-            NSMutableArray *allGood = [NSMutableArray array];
-            query.limit = count - self.total;
-            [query orderByDescending:@"createdAt"];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                NSArray *ditArray = objects;
-                for (NSDictionary *dict in ditArray) {
-                    PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
-                    [allGood addObject:goodList];
-                }
-                //把新数据添加到旧数据的前面
-                NSRange range=NSMakeRange(0, allGood.count);
-                NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:range];
-                [self.goods insertObjects:allGood atIndexes:indexSet];
-                self.total = self.goods.count;
-                [self.tableView reloadData];
-                
-            }];
-            
-            
-        }
-        [refreshControl endRefreshing];
-        
-        
-    });
-    
-    
-    
-}
 
 - (void)headerRereshing
 {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        
+        [query includeKey:@"imageArray"];
+//        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
         NSInteger count = [query countObjects];
         if (count > self.total) {
             
@@ -165,15 +112,11 @@
                 NSRange range=NSMakeRange(0, allGood.count);
                 NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:range];
                 [self.goods insertObjects:allGood atIndexes:indexSet];
-                self.total = self.goods.count;
+                self.total = count;
                 [self.tableView reloadData];
                 
                 [self.tableView headerEndRefreshing];
-                
-                
             }];
-            
-            
         }
         
         // 刷新表格
@@ -191,16 +134,18 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         PTGoodsList *lastGoods =     [self.goods lastObject];
-        NSDate *lastdate =   lastGoods.created_at;
+        NSString *lastString =   lastGoods.created_at;
+        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//设定时间格式,这里可以设置成自己需要的格式
+        NSDate *lastdate =[dateFormat dateFromString:lastString];
         AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
         query.limit = 5;
         [query whereKey:@"createdAt" lessThan:lastdate];
         [query orderByDescending:@"createdAt"];
-        
-        
+        [query includeKey:@"imageArray"];
         
         NSMutableArray *allGood = [NSMutableArray array];
-        
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             NSArray *ditArray = objects;
             if (ditArray) {
@@ -210,23 +155,11 @@
                 }
                 [self.goods addObjectsFromArray:allGood];
                 [self.tableView reloadData];
-                
-                // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-                
-                
             }
             
         }];
-        
-        
-        
-        
-        
-        // 刷新表格
-        
     });
     [self.tableView footerEndRefreshing];
-    
 }
 
 

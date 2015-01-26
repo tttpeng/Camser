@@ -14,7 +14,8 @@
 
 @property (nonatomic,strong) NSData *iconData;
 
-@property (nonatomic,copy) NSDate *created_at;
+@property (nonatomic,copy) NSString *created_at;
+@property (nonatomic, copy, readonly) NSString *createdTime;
 
 @property (nonatomic,copy) NSString *text;
 
@@ -22,7 +23,9 @@
 
 @property (nonatomic,strong)NSArray *pictures;
 
-+ (instancetype)listWithName:(NSString *)name iconData:(NSData *)iconData created_at:(NSDate *)created_at text:(NSString *)text price:(NSString *)price pictures:(NSArray *)pictures;
+@property (nonatomic,copy)NSString *locationString;
+
+@property (nonatomic,strong)NSNumber *goodsType;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

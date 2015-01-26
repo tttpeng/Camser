@@ -40,7 +40,11 @@
 		CC4ED99E1A6FC7E6006E11B7 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED9941A6FC7E6006E11B7 /* UIScrollView+MJExtension.m */; };
 		CC4ED99F1A6FC7E6006E11B7 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED9961A6FC7E6006E11B7 /* UIScrollView+MJRefresh.m */; };
 		CC4ED9A01A6FC7E6006E11B7 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = CC4ED9981A6FC7E6006E11B7 /* UIView+MJExtension.m */; };
+		CC76717E1A72202000883521 /* PTSaleController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC76717D1A72202000883521 /* PTSaleController.m */; };
+		CC7E793F1A74E4F000BFF59D /* NSDate+PT.m in Sources */ = {isa = PBXBuildFile; fileRef = CC7E793E1A74E4F000BFF59D /* NSDate+PT.m */; };
+		CC7E795B1A751F4400BFF59D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7E795A1A751F4400BFF59D /* CoreLocation.framework */; };
 		CC96E71B1A6D5E77007B5E66 /* PTSaleEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC96E71A1A6D5E77007B5E66 /* PTSaleEditController.m */; };
+		CCD98E4F1A754E4A00852242 /* PTCeshiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCD98E4E1A754E4A00852242 /* PTCeshiViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,8 +124,15 @@
 		CC4ED9961A6FC7E6006E11B7 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		CC4ED9971A6FC7E6006E11B7 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		CC4ED9981A6FC7E6006E11B7 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		CC76717C1A72202000883521 /* PTSaleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSaleController.h; sourceTree = "<group>"; };
+		CC76717D1A72202000883521 /* PTSaleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSaleController.m; sourceTree = "<group>"; };
+		CC7E793D1A74E4F000BFF59D /* NSDate+PT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+PT.h"; sourceTree = "<group>"; };
+		CC7E793E1A74E4F000BFF59D /* NSDate+PT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PT.m"; sourceTree = "<group>"; };
+		CC7E795A1A751F4400BFF59D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CC96E7191A6D5E77007B5E66 /* PTSaleEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTSaleEditController.h; sourceTree = "<group>"; };
 		CC96E71A1A6D5E77007B5E66 /* PTSaleEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTSaleEditController.m; sourceTree = "<group>"; };
+		CCD98E4D1A754E4A00852242 /* PTCeshiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCeshiViewController.h; sourceTree = "<group>"; };
+		CCD98E4E1A754E4A00852242 /* PTCeshiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCeshiViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC7E795B1A751F4400BFF59D /* CoreLocation.framework in Frameworks */,
 				67D0EBD5DF66393B9D0B341A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +185,8 @@
 				70103CD01A675319002DF14D /* AppDelegate.m */,
 				70103CD21A675319002DF14D /* ViewController.h */,
 				70103CD31A675319002DF14D /* ViewController.m */,
+				CCD98E4D1A754E4A00852242 /* PTCeshiViewController.h */,
+				CCD98E4E1A754E4A00852242 /* PTCeshiViewController.m */,
 				70103D001A6759F2002DF14D /* PTNavigationController.h */,
 				70103D011A6759F2002DF14D /* PTNavigationController.m */,
 				70103CF51A675911002DF14D /* PTTabBarController.h */,
@@ -368,6 +382,8 @@
 		70E118151A6A80B600384D72 /* categray */ = {
 			isa = PBXGroup;
 			children = (
+				CC7E793D1A74E4F000BFF59D /* NSDate+PT.h */,
+				CC7E793E1A74E4F000BFF59D /* NSDate+PT.m */,
 				70E118161A6A80C200384D72 /* MBProgressHUD+PT.h */,
 				70E118171A6A80C200384D72 /* MBProgressHUD+PT.m */,
 			);
@@ -377,6 +393,7 @@
 		7508D721170D9B73AED4AFC5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC7E795A1A751F4400BFF59D /* CoreLocation.framework */,
 				BF813735B55207E75ED6AD18 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -445,6 +462,8 @@
 			children = (
 				CC96E7191A6D5E77007B5E66 /* PTSaleEditController.h */,
 				CC96E71A1A6D5E77007B5E66 /* PTSaleEditController.m */,
+				CC76717C1A72202000883521 /* PTSaleController.h */,
+				CC76717D1A72202000883521 /* PTSaleController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -597,6 +616,7 @@
 				70BFF0641A6BC69300C7A71A /* PTGoodsList.m in Sources */,
 				CC4ED99A1A6FC7E6006E11B7 /* MJRefreshBaseView.m in Sources */,
 				CC4ED99B1A6FC7E6006E11B7 /* MJRefreshConst.m in Sources */,
+				CCD98E4F1A754E4A00852242 /* PTCeshiViewController.m in Sources */,
 				70BFF0611A6BC65900C7A71A /* PTGoodsListCell.m in Sources */,
 				70E118181A6A80C200384D72 /* MBProgressHUD+PT.m in Sources */,
 				70103D021A6759F2002DF14D /* PTNavigationController.m in Sources */,
@@ -604,10 +624,12 @@
 				CC4ED99E1A6FC7E6006E11B7 /* UIScrollView+MJExtension.m in Sources */,
 				70103CD11A675319002DF14D /* AppDelegate.m in Sources */,
 				7032AC2D1A67855F00ED2D8F /* PTRegisterViewController.m in Sources */,
+				CC7E793F1A74E4F000BFF59D /* NSDate+PT.m in Sources */,
 				70103CCE1A675319002DF14D /* main.m in Sources */,
 				70769F7D1A694B650065F2A8 /* PTCellItem.m in Sources */,
 				CC39D2EA1A6E9B3700CC1E56 /* PTGoodsPhotoItem.m in Sources */,
 				70769F7A1A6949850065F2A8 /* PTPerSettingViewController.m in Sources */,
+				CC76717E1A72202000883521 /* PTSaleController.m in Sources */,
 				7032AC2A1A67840300ED2D8F /* PTLoginViewController.m in Sources */,
 				CC96E71B1A6D5E77007B5E66 /* PTSaleEditController.m in Sources */,
 				70103CF91A675911002DF14D /* PTTabBarController.m in Sources */,

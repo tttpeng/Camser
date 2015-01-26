@@ -31,11 +31,13 @@
 - (IBAction)logout:(UIButton *)sender {
     AVUser *user = [AVUser currentUser];
     [AVUser logOut];
-    if (user) {
-        [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
+    if (user.username.length > 10) {
         [AVOSCloudSNS logout:AVOSCloudSNSQQ];
+    }else
+    {
+        [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
+
     }
-    
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate perSettingViewControllerReload];
 }

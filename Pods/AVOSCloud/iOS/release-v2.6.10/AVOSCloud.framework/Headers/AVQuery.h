@@ -626,8 +626,7 @@
 @property (readwrite, assign) NSTimeInterval maxCacheAge;
 
 /*!
- Returns whether there is a cached result for this query.
- @return YES if there is a cached result for this query, and NO otherwise.
+ Returns whether ihere is a cached result for this query, and NO otherwise.
  */
 - (BOOL)hasCachedResult;
 

@@ -20,5 +20,6 @@
 @property (nonatomic,assign)NSInteger index;
 @property (nonatomic,strong)UIImage *contentImage;
 @property (nonatomic,weak)UIButton *uploadBtn;
+@property (nonatomic,assign)BOOL isUpload;
 
 @end
