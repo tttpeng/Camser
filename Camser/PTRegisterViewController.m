@@ -43,7 +43,7 @@
   [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"219407974" andAppSecret:@"fd66f84d94d6a7945d7873268fc73d84" andRedirectURI:@"https://api.weibo.com/oauth2/default.html"];
     
     [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
-        NSLog(@"我进来了");
+
     } toPlatform:AVOSCloudSNSSinaWeibo];
 
     

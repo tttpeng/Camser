@@ -95,10 +95,6 @@
     [self.contentView addSubview:imageScroll];
     self.imageScrollView = imageScroll;
     
-    
-    
-  
-    
     CGFloat nameButtonX = 55;
     CGFloat nameButtonY = 20;
     CGFloat nameButtonW = 200;
@@ -112,11 +108,12 @@
     self.nameButton = nameButton;
     [self.contentView addSubview:nameButton];
     
-    CGFloat createTimeX = 300;
+    CGFloat createTimeX = 290;
     CGFloat createTimeY = 20;
-    CGFloat createTimeW = 80;
+    CGFloat createTimeW = 70;
     CGFloat createTimeH = 15;
     UILabel *timeLabel = [[UILabel alloc] init];
+    timeLabel.textAlignment = NSTextAlignmentRight;
     timeLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
     timeLabel.font = [UIFont systemFontOfSize:11];
     timeLabel.frame = CGRectMake(createTimeX, createTimeY, createTimeW, createTimeH);
@@ -157,12 +154,6 @@
     self.goodTypeImage = goodTypeImage;
     [self.contentView addSubview:goodTypeImage];
     
-
-    
-
-  
-
-    
     UILabel *localLabel = [[UILabel alloc] init];
     localLabel.frame = CGRectMake(12, 253, 61, 30);
     localLabel.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
@@ -172,7 +163,6 @@
     self.localLabel = localLabel;
     [self.contentView addSubview:localLabel];
     
-
     UIView *divideLine = [[UIView alloc] init];
     divideLine.frame = CGRectMake(0, 291, 375, 1);
     divideLine.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
@@ -211,9 +201,6 @@
     [shareBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
     [self.contentView addSubview:shareBtn];
     
-    
-    
-    
 }
 
 
@@ -243,10 +230,7 @@
         oneImage.frame = CGRectMake((oneImageW + 5) * i, oneImageY, oneImageW, oneImageH);
         [self.imageScrollView addSubview:oneImage];
         AVFile *imagefile = self.goodsList.pictures[i];
-        NSLog(@"（-------------------------------）%d",imagefile.isDataAvailable);
-        [imagefile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            NSLog(@"没有获得图片的原因是:%@",error);
-            UIImage *image = [UIImage imageWithData:data];
+        [imagefile getThumbnail:YES width:300 height:300 withBlock:^(UIImage *image, NSError *error) {
             oneImage.image = image;
         }];
         

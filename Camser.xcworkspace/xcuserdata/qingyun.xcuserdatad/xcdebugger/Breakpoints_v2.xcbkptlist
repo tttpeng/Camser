@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTGoodsList.m"
-            timestampString = "443887668.820041"
+            filePath = "Camser/PTSaleEditController.m"
+            timestampString = "443981358.014987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-comeIcon:"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-qb_imagePickerController:didSelectAssets:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTGoodsList.m"
-            timestampString = "443887668.820041"
+            filePath = "Camser/PTBigViewController.m"
+            timestampString = "444067821.203503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-comeIcon:"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTGoodsList.m"
-            timestampString = "443887668.820041"
+            filePath = "Camser/PTBigViewController.m"
+            timestampString = "444067821.203503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-comeIcon:"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "-scrollViewDidEndDecelerating:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,13 +67,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTGoodsList.m"
-            timestampString = "443886163.645612"
+            filePath = "Camser/PTBigViewController.m"
+            timestampString = "444067821.203503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "-initWithDict:"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-ceshilalal:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -13,46 +13,27 @@
 @implementation PTGoodsList
 
 
-- (instancetype)initWithDict:(NSDictionary *)dict
+- (instancetype)initWithDict:(NSDictionary *)dict User:(AVUser *)user
 {
     if (self = [super init]) {
-         NSString *ID = dict[@"objectId"];
-        [self comeIcon:ID];
-        NSDate *date  = dict[@"createdAt"];
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//设定时间格式,这里可以设置成自己需要的格式
-        NSString *currentDateStr = [dateFormat stringFromDate:date];
-        self.created_at = currentDateStr;
+        self.createdAt  = dict[@"createdAt"];
+        self.updatedAt = dict[@"updatedAt"];
         self.text = dict[@"goodsText"];
         self.price = dict[@"price"];
         self.goodsType = dict[@"goodsType"];
         self.locationString = dict[@"locationString"];
-        NSArray *imageArray = dict[@"imageArray"];
-        self.pictures = imageArray;
-        
+        self.pictures = dict[@"imageArray"];
+        AVFile *applicantResume = [user objectForKey:@"imageFile"];
+        self.iconData = [applicantResume getData];
+        self.username = [user objectForKey:@"nickName"];
     }
     return self;
 }
 
-- (void)comeIcon:(NSString *)objectID
++ (instancetype)goodsWithDict:(NSDictionary *)dict User:(AVUser *)user
 {
-   
 
-    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-    AVObject *avobb = [query getObjectWithId:objectID];
-    AVUser *user = [avobb objectForKey:@"author"];
-    user = (AVUser *)[user fetchIfNeeded];
-    AVFile *applicantResume = [user objectForKey:@"imageFile"];
-    self.iconData  = [applicantResume getData];
-    self.username = [user objectForKey:@"nickName"];
-
-    
-}
-
-+ (instancetype)goodsWithDict:(NSDictionary *)dict
-{
-    NSLog(@"================%@",dict);
-    return [[self alloc] initWithDict:dict];
+    return [[self alloc] initWithDict:dict User:user];
 
 }
 
@@ -66,7 +47,7 @@
     fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
 #warning 真机调试下, 必须加上这段
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSDate *createdDate = [fmt dateFromString:_created_at];
+    NSDate *createdDate = _updatedAt;
     
     // 2..判断微博发送时间 和 现在时间 的差距
     if (createdDate.isToday) { // 今天

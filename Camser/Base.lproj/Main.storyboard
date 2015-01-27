@@ -52,7 +52,7 @@
             <objects>
                 <viewController id="wdc-zF-nUa" customClass="PTLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VsT-Sz-bcN">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="G51-zR-gZe">
@@ -149,7 +149,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWu-QZ-Agw" sceneMemberID="firstResponder"/>
             </objects>
@@ -327,6 +327,9 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="首页" id="lBT-Mc-kdr"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <segue destination="mFf-nk-d0o" kind="push" identifier="list2detail" id="v2D-tA-cPm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WhP-2Y-3bJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -337,7 +340,7 @@
             <objects>
                 <viewController id="bHg-eh-eBm" customClass="PTSaleController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z5B-hJ-dIu">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OJK-A3-oS7">
@@ -357,14 +360,14 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cZx-9e-90f" kind="push" id="TLI-rI-7YG"/>
+                                    <segue destination="cZx-9e-90f" kind="modal" modalTransitionStyle="crossDissolve" id="AAc-aT-hmO"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="rfd-kO-kQc"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <segue destination="7DC-zt-aEJ" kind="modal" identifier="sale2login" id="XtY-mA-hIE"/>
                         <segue destination="K9m-Rn-JHa" kind="push" identifier="sale2edit" id="kpj-GA-rV8"/>
@@ -414,16 +417,46 @@
             </objects>
             <point key="canvasLocation" x="3.5" y="-404.5"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Vpm-Sk-lBa">
+            <objects>
+                <viewController id="mFf-nk-d0o" customClass="PTDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D1X-Iv-yTG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TPP-l6-1Pk">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="556"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="mFf-nk-d0o" id="mz4-8O-33G"/>
+                                    <outlet property="delegate" destination="mFf-nk-d0o" id="mjI-ja-QRB"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="trR-6e-gL4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="tableView" destination="TPP-l6-1Pk" id="fpd-8M-mxG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CUV-SF-lmR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2567" y="365"/>
+        </scene>
         <!--Ceshi View Controller-->
         <scene sceneID="ZwT-5X-x83">
             <objects>
                 <viewController id="cZx-9e-90f" customClass="PTCeshiViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TfF-wn-Zq0">
-                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AZh-b0-A7W">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -435,21 +468,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="o2w-kc-GeA"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="tableView" destination="AZh-b0-A7W" id="vj3-Vf-0gd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nyR-LW-oXI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1954.5" y="380.5"/>
+            <point key="canvasLocation" x="-1696.5" y="276.5"/>
         </scene>
         <!--Sale Edit Controller-->
         <scene sceneID="kIR-i9-h1C">
             <objects>
                 <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="K9m-Rn-JHa" customClass="PTSaleEditController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FfH-xx-Hpj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -662,7 +695,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="cameraBtn" destination="GIH-aw-Cir" id="lel-vB-DEq"/>
                         <outlet property="descTextView" destination="VB2-hx-VuR" id="UVh-AQ-lrm"/>
@@ -714,7 +747,7 @@
     <resources>
         <image name="WBCameral_normalIcon" width="95" height="96"/>
         <image name="bg_navigationBar" width="10" height="42"/>
-        <image name="btn_b" width="20" height="20"/>
+        <image name="btn_b" width="193" height="81"/>
         <image name="btn_backItem" width="23" height="23"/>
         <image name="btn_dismissItem" width="19" height="19"/>
         <image name="btn_login_qq_new" width="40" height="40"/>

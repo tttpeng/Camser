@@ -177,9 +177,8 @@
     [self.imageArray addObject:theImage];
     [self setImage];
     [self dismissViewControllerAnimated:YES completion:^{
-        
+        [self uploadImage];
     }];
-    
 }
 
 //调用相机
@@ -228,7 +227,7 @@
         [self.imageScrollView addSubview:photoItem];
     }
     
-    [self uploadImage];
+    
 }
 
 //goodsPhotoItemView Delegate -- 删除列表中的照片
@@ -252,14 +251,17 @@
 - (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didSelectAssets:(NSArray *)assets
 {
     for (ALAsset *asset in assets) {
-        CGImageRef ref = asset.defaultRepresentation.fullResolutionImage;
+        CGImageRef ref = asset.defaultRepresentation.fullScreenImage;
         UIImage *image = [UIImage imageWithCGImage:ref];
-        
+
         [self.imageArray addObject:image];
     }
-    [self setImage];
+     [self setImage];
+    
     NSLog(@"%@",assets);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+       [self uploadImage];
+    }];
 }
 
 - (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
@@ -270,14 +272,10 @@
 //上传照片
 - (void)uploadImage
 {
-    
-    
-    
     for (PTGoodsPhotoItem *photoItem  in self.imageScrollView.subviews) {
         if (!photoItem.isUpload) {
             UIImage *image = photoItem.contentImage;
-            NSData *bigimagedata = UIImagePNGRepresentation(image);
-            NSData *imageData = UIImageJPEGRepresentation(image, 0.3);
+            NSData *imageData = UIImageJPEGRepresentation(image, 0.4);
             AVFile *imageFile = [AVFile fileWithName:@"123.png" data:imageData];
             [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 if (succeeded) {

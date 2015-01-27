@@ -12,10 +12,12 @@
 #import "PTGoodsList.h"
 #import "PTGoodsListCell.h"
 #import "MJRefresh.h"
+#import "PTDetailViewController.h"
 
 @interface PTGoodsListController ()
 @property (nonatomic, strong) NSMutableArray *goods;
 @property (nonatomic, assign) NSInteger total;
+@property (nonatomic, strong) AVQuery *query;
 @end
 
 @implementation PTGoodsListController
@@ -28,40 +30,32 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupRefresh];
+    
 }
 
 - (NSMutableArray *)goods
 {
     if (_goods == nil) {
-        AVQuery *query = [self obtainData];
-        NSInteger count = query.countObjects;
-        NSLog(@"一共多少条数据%ld",(long)count);
-        self.total = count;
-        NSMutableArray *allGood = [NSMutableArray array];
-        NSArray *ditArray = [query findObjects];
-      
-        for (NSDictionary *dict in ditArray) {
-            PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
-            [allGood addObject:goodList];
-        }
-        _goods = allGood;
+        _goods = [NSMutableArray arrayWithArray:[self loadCache:NO]];
     }
     
     return _goods;
 }
 
 
-- (AVQuery *)obtainData
+
+- (NSArray *)goodsArrayWithAVObjects:(NSArray *)AVArray
 {
-    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
-    query.limit = 5;
-    [query includeKey:@"imageArray"];
-    [query orderByDescending:@"createdAt"];
-    
-    return query;
-    
+    [AVOSCloud setLastModifyEnabled:YES];
+    NSMutableArray *allGood = [NSMutableArray array];
+    for (AVObject *avobj in AVArray) {
+        AVUser *goodUser = [avobj objectForKey:@"author"];
+        PTGoodsList *goodList = [PTGoodsList goodsWithDict:(NSDictionary *)avobj User:goodUser];
+        [allGood addObject:goodList];
+    }
+    return allGood;
 }
+
 
 /**
  *  集成刷新控件
@@ -71,7 +65,7 @@
     // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     // dateKey用于存储刷新时间，可以保证不同界面拥有不同的刷新时间
     [self.tableView addHeaderWithTarget:self action:@selector(headerRereshing) dateKey:@"table"];
-    [self.tableView headerBeginRefreshing];
+    //    [self.tableView headerBeginRefreshing];
     
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
     [self.tableView addFooterWithTarget:self action:@selector(footerRereshing)];
@@ -88,78 +82,133 @@
 
 
 
-
 - (void)headerRereshing
 {
+    AVQuery* query = [AVQuery queryWithClassName:@"GoodsList"];
+    [query includeKey:@"imageArray"];
+    [query includeKey:@"author"];
+    query.cachePolicy = kPFCachePolicyIgnoreCache;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1* NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        [query includeKey:@"imageArray"];
-//        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
-        NSInteger count = [query countObjects];
-        if (count > self.total) {
-            
-            NSMutableArray *allGood = [NSMutableArray array];
-            query.limit = count - self.total;
-            [query orderByDescending:@"createdAt"];
-            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-                NSArray *ditArray = objects;
-                for (NSDictionary *dict in ditArray) {
-                    PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
-                    [allGood addObject:goodList];
-                }
-                //把新数据添加到旧数据的前面
-                NSRange range=NSMakeRange(0, allGood.count);
-                NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:range];
-                [self.goods insertObjects:allGood atIndexes:indexSet];
-                self.total = count;
-                [self.tableView reloadData];
-                
-                [self.tableView headerEndRefreshing];
-            }];
+    if (self.goods.count) {
+        PTGoodsList *lastGoods = self.goods[0];
+        NSDate *lastDate = lastGoods.updatedAt;
+        [query whereKey:@"updatedAt" greaterThan:lastDate];
+    }
+    
+    [query orderByDescending:@"updatedAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        
+        if (!error) {
+            NSArray *allGood  = [self goodsArrayWithAVObjects:objects];
+            NSRange range=NSMakeRange(0, allGood.count);
+            NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:range];
+            [self.goods insertObjects:allGood atIndexes:indexSet];
+            [self.tableView reloadData];
+            [self.tableView headerEndRefreshing];
+            [self showNewStatusCount:(int)allGood.count];
+            [self loadCache:YES];
+        }else
+        {
+            [self.tableView headerEndRefreshing];
         }
-        
-        // 刷新表格
-        //        [self.tableView reloadData];
-        [self.tableView headerEndRefreshing];
-        // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
-        
-        
-    });
+    }];
     
 }
 
+
+
 - (void)footerRereshing
 {
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        PTGoodsList *lastGoods =     [self.goods lastObject];
-        NSString *lastString =   lastGoods.created_at;
-        NSDateFormatter* dateFormat = [[NSDateFormatter alloc] init];//实例化一个NSDateFormatter对象
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];//设定时间格式,这里可以设置成自己需要的格式
-        NSDate *lastdate =[dateFormat dateFromString:lastString];
-        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
-        query.limit = 5;
-        [query whereKey:@"createdAt" lessThan:lastdate];
-        [query orderByDescending:@"createdAt"];
-        [query includeKey:@"imageArray"];
-        
-        NSMutableArray *allGood = [NSMutableArray array];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            NSArray *ditArray = objects;
-            if (ditArray) {
-                for (NSDictionary *dict in ditArray) {
-                    PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
-                    [allGood addObject:goodList];
-                }
-                [self.goods addObjectsFromArray:allGood];
-                [self.tableView reloadData];
-            }
-            
-        }];
-    });
+    PTGoodsList *lastGoods = [self.goods lastObject];
+    NSDate *lastdate = lastGoods.updatedAt;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    query.limit = 5;
+    [query whereKey:@"updatedAt" lessThan:lastdate];
+    [query orderByDescending:@"updatedAt"];
+    [query includeKey:@"imageArray"];
+    [query includeKey:@"author"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        NSArray *allGood = [self goodsArrayWithAVObjects:objects];
+        [self.goods addObjectsFromArray:allGood];
+        [self.tableView reloadData];
+    }];
     [self.tableView footerEndRefreshing];
+}
+
+- (NSArray *)loadCache:(BOOL)isOne
+{
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    [query includeKey:@"imageArray"];
+    query.limit = 5;
+    [query orderByDescending:@"updatedAt"];
+    [query includeKey:@"author"];
+    __block NSMutableArray *array = [NSMutableArray array];
+    if(isOne)
+    {
+        query.cachePolicy = kPFCachePolicyNetworkElseCache;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            array = [NSMutableArray arrayWithArray:[self goodsArrayWithAVObjects:objects]];
+        }];
+    }else{
+        query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            array =  [NSMutableArray arrayWithArray:[self goodsArrayWithAVObjects:objects]];
+            self.goods = array;
+            [self.tableView reloadData];
+        }];
+        
+    }
+    return array;
+}
+
+/**
+ *  显示最新更新的数量
+ *
+ *  @param count 最新更新的数量
+ */
+- (void)showNewStatusCount:(int)count
+{
+    // 1.创建一个按钮
+    UIButton *btn = [[UIButton alloc] init];
+    // below : 下面  btn会显示在self.navigationController.navigationBar的下面
+    [self.navigationController.view insertSubview:btn belowSubview:self.navigationController.navigationBar];
+    
+    // 2.设置图片和文字
+    btn.userInteractionEnabled = NO;
+    //    [btn setBackgroundImage:[UIImage resizedImageWithName:@"timeline_new_status_background"] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    if (count) {
+        NSString *title = [NSString stringWithFormat:@"共有%d条新的数据哟~", count];
+        [btn setTitle:title forState:UIControlStateNormal];
+    } else {
+        [btn setTitle:@"没有新の数据~" forState:UIControlStateNormal];
+    }
+    
+    // 3.设置按钮的初始frame
+    CGFloat btnH = 30;
+    CGFloat btnY = 64 - btnH;
+    CGFloat btnX = 2;
+    CGFloat btnW = self.view.frame.size.width - 2 * btnX;
+    btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
+    
+    // 4.通过动画移动按钮(按钮向下移动 btnH + 1)
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        btn.transform = CGAffineTransformMakeTranslation(0, btnH + 2);
+        
+    } completion:^(BOOL finished) { // 向下移动的动画执行完毕后
+        
+        // 建议:尽量使用animateWithDuration, 不要使用animateKeyframesWithDuration
+        [UIView animateWithDuration:0.5 delay:0.5 options:UIViewAnimationOptionCurveLinear animations:^{
+            btn.transform = CGAffineTransformIdentity;
+        } completion:^(BOOL finished) {
+            // 将btn从内存中移除
+            [btn removeFromSuperview];
+        }];
+        
+    }];
 }
 
 
@@ -196,6 +245,15 @@
     return headerView;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PTGoodsList *goods = self.goods[indexPath.section];
+    [self performSegueWithIdentifier:@"list2detail" sender:goods];
+}
 
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    PTDetailViewController *detailVc = segue.destinationViewController;
+    detailVc.goods = sender;
+}
 @end

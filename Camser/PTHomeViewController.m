@@ -112,7 +112,7 @@
         [self performSegueWithIdentifier:@"home2login" sender:nil];
     }
     if (indexPath.section == 0 && indexPath.row == 0) {
-        NSLog(@"qwewq");
+
     }
 }
 

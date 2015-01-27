@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class AVUser;
 @interface PTGoodsList : NSObject
 
 @property (nonatomic,copy) NSString *username;
 
 @property (nonatomic,strong) NSData *iconData;
 
-@property (nonatomic,copy) NSString *created_at;
+@property (nonatomic,copy) NSDate *createdAt;
 @property (nonatomic, copy, readonly) NSString *createdTime;
-
+@property (nonatomic,copy) NSDate *updatedAt;
 @property (nonatomic,copy) NSString *text;
 
 @property (nonatomic,copy) NSString *price;
@@ -27,8 +28,8 @@
 
 @property (nonatomic,strong)NSNumber *goodsType;
 
-- (instancetype)initWithDict:(NSDictionary *)dict;
+- (instancetype)initWithDict:(NSDictionary *)dict User:(AVUser *)user;
 
-+ (instancetype)goodsWithDict:(NSDictionary *)dict;
++ (instancetype)goodsWithDict:(NSDictionary *)dict User:(AVUser *)user;
 
 @end
