@@ -24,8 +24,8 @@
     PTTabBar *myTabBar = [[PTTabBar alloc]init];
     myTabBar.frame = self.tabBar.bounds;
     myTabBar.delegate = self;
-    
-    [self.tabBar addSubview:myTabBar];
+    self.tabBar.backgroundColor = [UIColor colorWithWhite:0.226 alpha:1.000];
+//    [self.tabBar addSubview:myTabBar];
     
     [myTabBar addBackgroundImageWithName:@"bg_tabbar"];
     for (int i = 0; i < self.viewControllers.count; i++) {
@@ -48,9 +48,19 @@
             default:
                 break;
         }
+        UITabBarItem *one =  self.tabBar.items[1];
+        one.image = [[UIImage imageNamed:@"green-02"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        one.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
         
-    
-
+        UITabBarItem *two = self.tabBar.items[0];
+        two.image = [[UIImage imageNamed:@"yellow-27"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        two.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+        
+        UITabBarItem *three = self.tabBar.items[2];
+        three.image = [[UIImage imageNamed:@"blue-35-1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        three.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
+        
+        self.tabBar.selectionIndicatorImage = [UIImage imageNamed:@"tab_bar_selected"];
         NSString *normal = [NSString stringWithFormat:@"icon_tabbar_%d",i + 1];
         NSString *high = [NSString stringWithFormat:@"icon_tabbar_%d_selected",i + 1];
         [myTabBar addTabButtonWithName:normal selName:high title:title];

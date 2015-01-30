@@ -16,6 +16,8 @@
 @end
 @interface PTDetailInfoView : UIView
 
+@property (weak, nonatomic) IBOutlet UIScrollView *imageScroll;
+
 @property (nonatomic, strong) PTGoodsList *goods;
 @property (nonatomic, retain) IBOutlet UIView *contentView;
 @property (nonatomic ,weak)id<PTDetailInfoViewDelegate>delegate;

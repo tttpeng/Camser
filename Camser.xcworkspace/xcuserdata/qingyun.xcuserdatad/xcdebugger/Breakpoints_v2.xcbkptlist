@@ -4,28 +4,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTSaleEditController.m"
-            timestampString = "443981358.014987"
+            filePath = "Camser/PTGoodsListController.m"
+            timestampString = "444302376.657752"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "260"
-            endingLineNumber = "260"
-            landmarkName = "-qb_imagePickerController:didSelectAssets:"
+            startingLineNumber = "135"
+            endingLineNumber = "135"
+            landmarkName = "-footerRereshing"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTBigViewController.m"
-            timestampString = "444067821.203503"
+            filePath = "Camser/PTDetailViewController.m"
+            timestampString = "444315590.351128"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "-scrollViewDidEndDecelerating:"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "-comments"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTBigViewController.m"
-            timestampString = "444067821.203503"
+            filePath = "Camser/PTDetailViewController.m"
+            timestampString = "444315647.836738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-scrollViewDidEndDecelerating:"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "-comments"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,14 +57,76 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Camser/PTBigViewController.m"
-            timestampString = "444067821.203503"
+            filePath = "Camser/PTDetailViewController.m"
+            timestampString = "444315752.408318"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "-ceshilalal:"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-comments"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camser/PTDetailViewController.m"
+            timestampString = "444315752.743637"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-comments"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Camser/PTDetailViewController.m"
+            timestampString = "444315756.159584"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "-comments"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PTDetailViewController comments]"
+                  moduleName = "Camser"
+                  urlString = "file:///Users/qingyun/Desktop/Objective-C%E4%BB%A3%E7%A0%81/MyProject/Camser/Camser/PTDetailViewController.m"
+                  timestampString = "444315756.161298"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "289">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__34-[PTDetailViewController comments]_block_invoke"
+                  moduleName = "Camser"
+                  urlString = "file:///Users/qingyun/Desktop/Objective-C%E4%BB%A3%E7%A0%81/MyProject/Camser/Camser/PTDetailViewController.m"
+                  timestampString = "444315756.161476"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "74">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

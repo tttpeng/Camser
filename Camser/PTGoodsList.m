@@ -16,6 +16,7 @@
 - (instancetype)initWithDict:(NSDictionary *)dict User:(AVUser *)user
 {
     if (self = [super init]) {
+        self.objectId = dict[@"objectId"];
         self.createdAt  = dict[@"createdAt"];
         self.updatedAt = dict[@"updatedAt"];
         self.text = dict[@"goodsText"];
@@ -26,6 +27,7 @@
         AVFile *applicantResume = [user objectForKey:@"imageFile"];
         self.iconData = [applicantResume getData];
         self.username = [user objectForKey:@"nickName"];
+        self.title = dict[@"title"];
     }
     return self;
 }

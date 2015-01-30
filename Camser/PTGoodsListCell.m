@@ -8,6 +8,7 @@
 
 #import "PTGoodsListCell.h"
 #import "PTGoodsList.h"
+#import "PTBorderView.h"
 #import <AVOSCloud/AVOSCloud.h>
 
 
@@ -51,7 +52,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        [self setContentView];
+        [self setbackView];
     }
     return self;
 
@@ -64,8 +65,19 @@
     [self setData];
 }
 
-- (void)setContentView
+- (void)setbackView
 {
+    
+    PTBorderView *backView = [[PTBorderView alloc] init];
+    backView.frame = CGRectMake(10, 10, 355, 290);
+    backView.backgroundColor = [UIColor whiteColor];
+    [self.contentView addSubview:backView];
+    
+    UIImageView *backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_back"]];
+    backImage.frame=  backView.bounds;
+    [backView addSubview:backImage];
+    
+    self.contentView.backgroundColor = [UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:1.000];
     
     CGFloat iconViewX = 12;
     CGFloat iconViewY = 12;
@@ -80,7 +92,7 @@
     iconView.layer.borderWidth = 3.0f;
     iconView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.iconView = iconView;
-    [self.contentView addSubview:iconView];
+    [backView addSubview:iconView];
     
     
     CGFloat imageScrollX = 12;
@@ -92,7 +104,7 @@
     imageScroll.showsVerticalScrollIndicator = NO;
     imageScroll.showsHorizontalScrollIndicator = NO;
     imageScroll.frame = CGRectMake(imageScrollX, imageScrollY, imageScrollW, imageScrollH);
-    [self.contentView addSubview:imageScroll];
+    [backView addSubview:imageScroll];
     self.imageScrollView = imageScroll;
     
     CGFloat nameButtonX = 55;
@@ -106,11 +118,11 @@
     [nameButton setTitleColor:[UIColor colorWithRed:0.060 green:0.057 blue:0.056 alpha:1.000] forState:UIControlStateNormal];
     nameButton.titleLabel.font = [UIFont systemFontOfSize:14];
     self.nameButton = nameButton;
-    [self.contentView addSubview:nameButton];
+    [backView addSubview:nameButton];
     
     CGFloat createTimeX = 290;
     CGFloat createTimeY = 20;
-    CGFloat createTimeW = 70;
+    CGFloat createTimeW = 55;
     CGFloat createTimeH = 15;
     UILabel *timeLabel = [[UILabel alloc] init];
     timeLabel.textAlignment = NSTextAlignmentRight;
@@ -118,7 +130,7 @@
     timeLabel.font = [UIFont systemFontOfSize:11];
     timeLabel.frame = CGRectMake(createTimeX, createTimeY, createTimeW, createTimeH);
     self.timeLabel = timeLabel;
-    [self.contentView addSubview:timeLabel];
+    [backView addSubview:timeLabel];
     
     CGFloat textX = 12;
     CGFloat textY = 55;
@@ -130,18 +142,18 @@
     textLabel.frame = CGRectMake(textX, textY, textW, textH);
     textLabel.numberOfLines = 2;
     self.descLabel = textLabel;
-    [self.contentView addSubview:textLabel];
+    [backView addSubview:textLabel];
     
     
     CGFloat priceLabelX = 50;
     CGFloat priceLabelY = 112;
-    CGFloat priceLabelW = 55;
+    CGFloat priceLabelW = 105;
     CGFloat priceLabelH = 16;
     UILabel *priceLabel = [[UILabel alloc] init];
     priceLabel.textColor = [UIColor colorWithRed:1 green:0.27 blue:0.27 alpha:1];
     priceLabel.frame = CGRectMake(priceLabelX, priceLabelY, priceLabelW, priceLabelH);
     self.priceLabel = priceLabel;
-    [self.contentView addSubview:priceLabel];
+    [backView addSubview:priceLabel];
     
     CGFloat tagLabelX =12 ;
     CGFloat tagLabelY =112 ;
@@ -152,22 +164,22 @@
     goodTypeImage.frame = CGRectMake(tagLabelX, tagLabelY, tagLabelW, tagLabelH);
     goodTypeImage.image = [UIImage imageNamed:@"home_sale"];
     self.goodTypeImage = goodTypeImage;
-    [self.contentView addSubview:goodTypeImage];
+    [backView addSubview:goodTypeImage];
     
     UILabel *localLabel = [[UILabel alloc] init];
-    localLabel.frame = CGRectMake(12, 253, 61, 30);
+    localLabel.frame = CGRectMake(12, 253, 100, 20);
     localLabel.backgroundColor = [UIColor colorWithWhite:0.918 alpha:1.000];
-    localLabel.layer.cornerRadius = 10;
+    localLabel.layer.cornerRadius = 5;
     localLabel.layer.masksToBounds = YES;
     localLabel.textAlignment = NSTextAlignmentCenter;
     self.localLabel = localLabel;
-    [self.contentView addSubview:localLabel];
+    [backView addSubview:localLabel];
     
     UIView *divideLine = [[UIView alloc] init];
-    divideLine.frame = CGRectMake(0, 291, 375, 1);
+    divideLine.frame = CGRectMake(0, 291, 355, 1);
     divideLine.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
     divideLine.alpha = 0.3;
-    [self.contentView addSubview:divideLine];
+//    [backView addSubview:divideLine];
     
     CGFloat attentionBtnX = 0;
     CGFloat attentionBtnY = 291;
@@ -181,7 +193,7 @@
     [attentionBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
     attentionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     attentionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
-    [self.contentView addSubview:attentionBtn];
+//    [backView addSubview:attentionBtn];
     
     UIButton *reviewBtn = [[UIButton alloc] init];
     reviewBtn.frame = CGRectMake(attentionBtnX + 125, attentionBtnY, attentionBtnW, attentionBtnH);
@@ -190,7 +202,7 @@
     reviewBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     reviewBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
     [reviewBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
-    [self.contentView addSubview:reviewBtn];
+//    [backView addSubview:reviewBtn];
     
     UIButton *shareBtn = [[UIButton alloc] init];
     shareBtn.frame = CGRectMake(attentionBtnX + 250, attentionBtnY, attentionBtnW, attentionBtnH);
@@ -199,7 +211,7 @@
     shareBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
     [shareBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
-    [self.contentView addSubview:shareBtn];
+//    [backView addSubview:shareBtn];
     
 }
 

@@ -21,7 +21,7 @@
  */
 -(void)layoutSubviews
 {
-       
+    self.backgroundColor = [UIColor colorWithWhite:0.171 alpha:1.000];
     int count = (int)self.subviews.count;
     
     NSLog(@"总数%d",count);
@@ -49,8 +49,9 @@
 {
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = self.bounds;
-    imageView.image = [UIImage imageNamed:name];
-    [self addSubview:imageView];
+    imageView.backgroundColor = [UIColor colorWithWhite:0.139 alpha:1.000];
+//    imageView.image = [UIImage imageNamed:name];
+//    [self addSubview:imageView];
 }
 
 /**

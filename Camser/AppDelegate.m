@@ -24,7 +24,7 @@
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-//    application.statusBarStyle = UIStatusBarStyleLightContent;
+    application.statusBarStyle = UIStatusBarStyleLightContent;
     application.statusBarHidden = NO;
     
     return YES;

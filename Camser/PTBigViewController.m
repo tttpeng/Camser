@@ -30,6 +30,7 @@
     bigScrollView.delegate = self;
     bigScrollView.showsHorizontalScrollIndicator = NO;
     bigScrollView.showsVerticalScrollIndicator = NO;
+    bigScrollView.alwaysBounceHorizontal = YES;
     self.bigScrollView = bigScrollView;
     bigScrollView.contentOffset = CGPointMake(_currentPage * bigScrollView.frame.size.width, 0);
     for (int i = 0; i < self.pictures.count; i ++) {
@@ -48,18 +49,9 @@
     self.numberLabel = numberLable;
     [self.view addSubview:numberLable];
     
-    
-    
-    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(ceshilalal:)];
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
-    
+
 }
 
-- (void)ceshilalal:(UIGestureRecognizer *)gens
-{
-    CGPoint location =  [gens locationInView:gens.view];
-    NSLog(@"(((())))))   %@",location);
-}
 
 - (void)backToDetailViewController
 {

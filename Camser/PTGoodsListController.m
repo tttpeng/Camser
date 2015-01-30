@@ -24,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.820 alpha:1.000];
+    self.tableView.backgroundColor =  [UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:1];
+//    self.tableView.backgroundColor = [UIColor]
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -55,6 +56,8 @@
     }
     return allGood;
 }
+
+
 
 
 /**

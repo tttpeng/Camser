@@ -10,14 +10,20 @@
 
 @class AVUser;
 @interface PTGoodsList : NSObject
+@property (nonatomic,copy)NSString *objectId;
+
+@property (nonatomic,copy)NSString *title;
 
 @property (nonatomic,copy) NSString *username;
 
 @property (nonatomic,strong) NSData *iconData;
 
 @property (nonatomic,copy) NSDate *createdAt;
+
 @property (nonatomic, copy, readonly) NSString *createdTime;
+
 @property (nonatomic,copy) NSDate *updatedAt;
+
 @property (nonatomic,copy) NSString *text;
 
 @property (nonatomic,copy) NSString *price;

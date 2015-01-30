@@ -17,12 +17,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconVIew;
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdTime;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
-@property (weak, nonatomic) IBOutlet UIScrollView *imageScroll;
 
 @end
 
@@ -46,6 +46,8 @@
     
     self.createdTime.text = goods.createdTime;
     
+    self.titleLabel.text = goods.title;
+    
     self.imageScroll.delegate = self;
     [self setImageList];
 }
@@ -53,7 +55,7 @@
 
 - (void)setImageList
 {
- 
+
     int count = (int)self.goods.pictures.count;
     CGFloat imageViewW = self.frame.size.width;
     self.pageControl.numberOfPages = count;

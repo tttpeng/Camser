@@ -17,7 +17,7 @@
 #import <CoreLocation/CoreLocation.h>
 #define kWidth [UIScreen mainScreen].bounds.size.width
 
-@interface PTSaleEditController ()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PTGoodsPhotoItemDelegate,QBImagePickerControllerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate>
+@interface PTSaleEditController ()<UIActionSheetDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,PTGoodsPhotoItemDelegate,QBImagePickerControllerDelegate,UIAlertViewDelegate,CLLocationManagerDelegate,UITextViewDelegate>
 - (IBAction)cameraButton:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *goodsTypeSg;
 @property (weak, nonatomic) IBOutlet UIButton *cameraBtn;
@@ -25,7 +25,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *descTextView;
 @property (weak, nonatomic) IBOutlet UITextField *priceField;
 @property (weak, nonatomic) IBOutlet UITextField *phoneNumField;
+@property (weak, nonatomic) IBOutlet UITextField *qqNumField;
 @property (weak, nonatomic) IBOutlet UITextField *locationField;
+@property (weak, nonatomic) IBOutlet UILabel *textfieldPlace;
+@property (weak, nonatomic) IBOutlet UITextField *titleField;
 @property (strong,nonatomic) NSMutableArray *imageArray;
 @property (strong,nonatomic) NSMutableArray *itemArray;
 @property (strong,nonatomic) NSMutableArray *imageFile;
@@ -69,22 +72,59 @@
     self.phoneNumField.leftViewMode = UITextFieldViewModeAlways;
     self.phoneNumField.leftView = leftBackView2;
     
+    UIView *leftBackView3 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    UIImageView *leftView3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_qq"]];
+    leftView3.tintColor = [UIColor grayColor];
+    leftView3.frame = CGRectMake(10, 12, 20, 20);
+    [leftBackView3 addSubview:leftView3];
+    self.qqNumField.leftViewMode = UITextFieldViewModeAlways;
+    self.qqNumField.leftView = leftBackView3;
+    
+    
+    
     _oneGoods = [AVObject objectWithClassName:@"GoodsList"];
     
     
+    self.descTextView.delegate = self;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
-    //创建CLLocationManager对象
-    self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
-    [self.locationManager requestWhenInUseAuthorization];
-    //设置代理为自己
-    self.locationManager.delegate = self;
-    [self.locationManager startUpdatingLocation];
-
+//    //创建CLLocationManager对象
+//    self.locationManager = [[CLLocationManager alloc] init];
+//    [self.locationManager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
+//    [self.locationManager requestWhenInUseAuthorization];
+//    //设置代理为自己
+//    self.locationManager.delegate = self;
+//    [self.locationManager startUpdatingLocation];
+//
+    
+    
+    UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
+    [topView setBarStyle:UIBarStyleBlackTranslucent];
+    topView.alpha = 0.5;
+    UIBarButtonItem * btnSpace = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(2, 5, 50, 25);
+    [btn addTarget:self action:@selector(dismissKeyBoard) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:@"完成" forState:UIControlStateNormal];
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    NSArray * buttonsArray = [NSArray arrayWithObjects:btnSpace,doneBtn,nil];
+    [topView setItems:buttonsArray];
+    [self.descTextView setInputAccessoryView:topView];
+    [self.qqNumField setInputAccessoryView:topView];
+    [self.priceField setInputAccessoryView:topView];
+    [self.phoneNumField setInputAccessoryView:topView];
     
 }
-
+-(void)dismissKeyBoard
+{
+    [self.descTextView resignFirstResponder];
+    [self.phoneNumField resignFirstResponder];
+    [self.qqNumField resignFirstResponder];
+    [self.locationField resignFirstResponder];
+    [self.priceField resignFirstResponder];
+}
 - (NSMutableArray *)imageFile
 {
     if (_imageFile == nil) {
@@ -131,6 +171,15 @@
     
 }
 
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    if (textView.text.length == 0) {
+        self.textfieldPlace.hidden = NO;
+    }else{
+        self.textfieldPlace.hidden  = YES;
+    }
+}
 
 
 //添加照片按钮
@@ -324,8 +373,12 @@
     NSString *price = self.priceField.text;
     NSString *phoneNum = self.phoneNumField.text;
     NSString *locationString = self.locationField.text;
+    NSString *qq = self.qqNumField.text;
+    NSString *title = self.titleField.text;
     NSInteger goodsType = self.goodsTypeSg.selectedSegmentIndex;
     [_oneGoods setObject:desc forKey:@"goodsText"];
+    [_oneGoods setObject:qq forKey:@"qq"];
+    [_oneGoods setObject:title forKey:@"title"];
     [_oneGoods setObject:price forKey:@"price"];
     [_oneGoods setObject:phoneNum forKey:@"phone"];
     [_oneGoods setObject:current forKey:@"author"];
@@ -362,18 +415,20 @@
     {
         [MBProgressHUD showError:@"你是要卖无价之宝吗？"];
         return NO;
-    }else if(self.phoneNumField.text.length == 0)
+    }else if(self.phoneNumField.text.length == 0 && self.qqNumField.text.length == 0)
     {
-        [MBProgressHUD showError:@"给个联系方式吧！"];
+        [MBProgressHUD showError:@"QQ或者手机号至少填一个~ 这样才能联系到您呢！"];
         return NO;
-    }else
-    {
+    }else if(self.locationField.text.length == 0){
+        [MBProgressHUD showError:@"请填写交易地点"];
+        return NO;
+    }else{
         return YES;
         
     }
     
-    
 }
+
 
 
 
@@ -390,51 +445,51 @@
 
 
 
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations
-{
-    NSLog(@"longitude = %f", ((CLLocation *)[locations lastObject]).coordinate.longitude);
-    NSLog(@"latitude = %f", ((CLLocation *)[locations lastObject]).coordinate.latitude);
-    CLLocation *newLocation = (CLLocation *)[locations lastObject];
-    
-    
-    // 获取当前所在的城市名
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    //根据经纬度反向地理编译出地址信息
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *array, NSError *error)
-     {
-         if (array.count > 0)
-         {
-             CLPlacemark *placemark = [array objectAtIndex:0];
-             
-             //将获得的所有信息显示到label上
-
-             //获取城市
-             NSString  *city = placemark.locality;
-                          if (!city) {
-                              //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
-                              city = placemark.administrativeArea;
-                          }
-             self.locationField.text = city;
-
-             NSLog(@"city = %@", city);
-             
-         }
-         else if (error == nil && [array count] == 0)
-         {
-             NSLog(@"No results were returned.");
-         }
-         else if (error != nil)
-         {
-             NSLog(@"An error occurred = %@", error);
-         }
-     }];
-    
-    
-    
-    [manager stopUpdatingHeading];
-    [manager stopUpdatingLocation];
-}
+//- (void)locationManager:(CLLocationManager *)manager
+//     didUpdateLocations:(NSArray *)locations
+//{
+//    NSLog(@"longitude = %f", ((CLLocation *)[locations lastObject]).coordinate.longitude);
+//    NSLog(@"latitude = %f", ((CLLocation *)[locations lastObject]).coordinate.latitude);
+//    CLLocation *newLocation = (CLLocation *)[locations lastObject];
+//    
+//    
+//    // 获取当前所在的城市名
+//    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+//    //根据经纬度反向地理编译出地址信息
+//    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *array, NSError *error)
+//     {
+//         if (array.count > 0)
+//         {
+//             CLPlacemark *placemark = [array objectAtIndex:0];
+//             
+//             //将获得的所有信息显示到label上
+//
+//             //获取城市
+//             NSString  *city = placemark.locality;
+//                          if (!city) {
+//                              //四大直辖市的城市信息无法通过locality获得，只能通过获取省份的方法来获得（如果city为空，则可知为直辖市）
+//                              city = placemark.administrativeArea;
+//                          }
+//             self.locationField.text = city;
+//
+//             NSLog(@"city = %@", city);
+//             
+//         }
+//         else if (error == nil && [array count] == 0)
+//         {
+//             NSLog(@"No results were returned.");
+//         }
+//         else if (error != nil)
+//         {
+//             NSLog(@"An error occurred = %@", error);
+//         }
+//     }];
+//    
+//    
+//    
+//    [manager stopUpdatingHeading];
+//    [manager stopUpdatingLocation];
+//}
 
 @end
 
