@@ -29,10 +29,10 @@
     navBar.backgroundColor = [UIColor whiteColor];
 //    navBar.translucent = YES;
     navBar.barStyle = UIBarStyleDefault;
-//    UIImage *image = [UIImage imageNamed:@"bg_navigationBar_white"];
-//    image = [UIImage resizedImageWithName:@"图片透明导航"];
-//    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-    navBar.barTintColor = [UIColor colorWithWhite:0.135 alpha:1.000];
+    UIImage *image = [UIImage imageNamed:@"cm2_topbar_bg"];
+    image = [UIImage resizedImageWithName:@"cm2_topbar_bg"];
+    [navBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+//    navBar.barTintColor = [UIColor colorWithWhite:0.135 alpha:1.000];
     NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
     attrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
     attrs[NSFontAttributeName] = [UIFont systemFontOfSize:20];

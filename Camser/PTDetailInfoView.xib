@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -10,9 +10,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="748"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="edit_back" translatesAutoresizingMaskIntoConstraints="NO" id="Pok-Mb-gTY">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="748"/>
-                </imageView>
                 <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GFx-Kt-GYG" userLabel="DetailImageView" customClass="PTBorderView">
                     <rect key="frame" x="7" y="8" width="361" height="367"/>
                     <subviews>
@@ -27,62 +24,62 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueQ-Ud-0M5" userLabel="DetailDescVew" customClass="PTBorderView">
-                    <rect key="frame" x="7" y="382" width="361" height="125"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ueQ-Ud-0M5" userLabel="DetailDescVew">
+                    <rect key="frame" x="8" y="382" width="360" height="125"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cm2_act_post_bg" translatesAutoresizingMaskIntoConstraints="NO" id="j0L-9s-gbT">
+                            <rect key="frame" x="0.0" y="0.0" width="360" height="125"/>
+                            <rect key="contentStretch" x="0.49999999999999994" y="0.44999999999999996" width="0.29999999999999999" height="0.29999999999999999"/>
+                        </imageView>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-bp-kNj">
-                            <rect key="frame" x="-6" y="0.0" width="375" height="66"/>
+                            <rect key="frame" x="8" y="8" width="343" height="59"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="红双喜乒乓球拍三星3002" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIL-wM-S4c">
-                                    <rect key="frame" x="23" y="8" width="241" height="21"/>
+                                    <rect key="frame" x="8" y="0.0" width="241" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.27450980390000002" green="0.68235294120000001" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_location1" translatesAutoresizingMaskIntoConstraints="NO" id="M58-Vh-PPU">
-                                    <rect key="frame" x="23" y="39" width="13" height="16"/>
-                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="交易地点：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tg-zg-2iH">
-                                    <rect key="frame" x="43" y="36" width="70" height="21"/>
+                                    <rect key="frame" x="28" y="28" width="70" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="北苑三号楼" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VD9-GR-Xeq">
-                                    <rect key="frame" x="112" y="36" width="85" height="21"/>
+                                    <rect key="frame" x="97" y="28" width="85" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.97348484850000006" green="0.44788286500000002" blue="0.16158183279999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3天前发布" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9E-Sr-sxN">
-                                    <rect key="frame" x="272" y="36" width="78" height="21"/>
+                                    <rect key="frame" x="257" y="28" width="78" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_location1" translatesAutoresizingMaskIntoConstraints="NO" id="M58-Vh-PPU">
+                                    <rect key="frame" x="8" y="29" width="13" height="16"/>
+                                </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zeV-wY-WS4" customClass="PTBorderView">
-                            <rect key="frame" x="0.0" y="67" width="360" height="58"/>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zeV-wY-WS4">
+                            <rect key="frame" x="4" y="65" width="348" height="52"/>
                             <subviews>
-                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2c-Jj-CLd">
-                                    <rect key="frame" x="0.0" y="0.0" width="358" height="58"/>
-                                    <color key="backgroundColor" red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
-                                </view>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ceshitouxiang" translatesAutoresizingMaskIntoConstraints="NO" id="9xY-kU-mhx">
-                                    <rect key="frame" x="13" y="10" width="38" height="38"/>
+                                    <rect key="frame" x="11" y="10" width="38" height="38"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的梦想伴随笑容" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9c-QQ-0t8">
-                                    <rect key="frame" x="59" y="6" width="209" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="计算机11级（学号认证）" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9I-oZ-LoF">
-                                    <rect key="frame" x="59" y="31" width="145" height="21"/>
+                                    <rect key="frame" x="57" y="31" width="145" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的梦想伴随笑容" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9c-QQ-0t8">
+                                    <rect key="frame" x="57" y="8" width="209" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
@@ -95,10 +92,10 @@
                     <rect key="frame" x="231" y="307" width="200" height="111"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="red-14" translatesAutoresizingMaskIntoConstraints="NO" id="AUF-DG-avP">
-                            <rect key="frame" x="0.0" y="13" width="131" height="107"/>
+                            <rect key="frame" x="0.0" y="8" width="131" height="107"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="480" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNH-Kl-Jgj">
-                            <rect key="frame" x="24" y="32" width="82" height="48"/>
+                            <rect key="frame" x="24" y="25" width="82" height="48"/>
                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -106,21 +103,25 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQ4-4w-sII" customClass="PTBorderView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQ4-4w-sII">
                     <rect key="frame" x="7" y="515" width="360" height="130"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cm2_act_post_bg" translatesAutoresizingMaskIntoConstraints="NO" id="tLX-k4-Ucs">
+                            <rect key="frame" x="0.0" y="0.0" width="360" height="130"/>
+                            <rect key="contentStretch" x="0.49999999999999994" y="0.44999999999999996" width="0.29999999999999999" height="0.29999999999999999"/>
+                        </imageView>
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qzB-NY-YDc">
-                            <rect key="frame" x="0.0" y="0.0" width="360" height="110"/>
+                            <rect key="frame" x="5" y="0.0" width="347" height="110"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2L-vF-rQL">
-                                    <rect key="frame" x="288" y="71" width="60" height="30"/>
+                                    <rect key="frame" x="283" y="71" width="60" height="30"/>
                                     <state key="normal" title="查看全部">
                                         <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5o-D1-dgU">
-                                    <rect key="frame" x="14" y="10" width="329" height="67"/>
+                                    <rect key="frame" x="9" y="10" width="329" height="67"/>
                                     <string key="text">乒乓球拍，横拍双面反胶，体育乒乓球课必备。我在大二的时候在绝望坡买的，完全符合课堂要求，当时只用了一学期，然后就再也没用过，基本上八成新。买的时候价格是60元，现在只卖30元，附送5个乒乓球，可小刀。选乒乓球课的学弟学妹看过来哦~免得你跑老远花高价买，本人可以送货上门~详询QQ：724289959，加好友请备注&amp;ldquo;二手市场&amp;rdquo;呦~另，如果专业合适，学长送几本教科书也是可以的~有木有觉得超值</string>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -195,7 +196,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.93333333333333335" green="0.83529411764705885" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803926" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <variation key="default">
                 <mask key="subviews">
@@ -203,6 +204,8 @@
                 </mask>
             </variation>
             <connections>
+                <outlet property="DetailDescVIew2" destination="rQ4-4w-sII" id="z5Q-YF-1p9"/>
+                <outlet property="DetailDescView" destination="ueQ-Ud-0M5" id="ZOm-0o-y5T"/>
                 <outlet property="createdTime" destination="o9E-Sr-sxN" id="uf7-fI-XX2"/>
                 <outlet property="descLabel" destination="z5o-D1-dgU" id="8Kf-oL-25l"/>
                 <outlet property="iconVIew" destination="9xY-kU-mhx" id="jGf-oK-03p"/>
@@ -219,7 +222,7 @@
     <resources>
         <image name="12333311" width="833" height="370"/>
         <image name="ceshitouxiang" width="640" height="640"/>
-        <image name="edit_back" width="270" height="686"/>
+        <image name="cm2_act_post_bg" width="15" height="17"/>
         <image name="icon_location1" width="60" height="71"/>
         <image name="red-14" width="128" height="128"/>
         <image name="red-comment" width="128" height="128"/>

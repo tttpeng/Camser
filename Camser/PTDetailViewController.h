@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @class PTGoodsList;
+@class PTComment;
 @interface PTDetailViewController : UIViewController
 
 @property (nonatomic,strong) PTGoodsList* goods;
+@property (nonatomic,strong) NSArray *comments;
 @end

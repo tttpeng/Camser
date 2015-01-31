@@ -13,8 +13,8 @@
 @interface PTComment : NSObject
 
 @property (nonatomic,copy)NSString *text;
-@property (nonatomic,copy)AVUser *user;
+@property (nonatomic,strong)AVUser *user;
 @property (nonatomic,copy)NSDate *createdAt;
-+ (instancetype)messageWithDict:(NSDictionary *)dict;
++ (instancetype)commentWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

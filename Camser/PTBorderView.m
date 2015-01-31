@@ -14,10 +14,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.layer.borderWidth = 0.5;
-        self.layer.borderColor = [UIColor colorWithWhite:0.750 alpha:1.000].CGColor;
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.layer.shadowOffset = CGSizeMake(0,-3);
+//        self.layer.borderWidth = 0.5;
+//        self.layer.borderColor = [UIColor colorWithWhite:0.750 alpha:1.000].CGColor;
+//        self.layer.shadowColor = [UIColor blackColor].CGColor;
+//        self.layer.shadowOffset = CGSizeMake(0,-3);
 //        self.layer.cornerRadius = 10;
 //        self.layer.masksToBounds = YES;
 //        self.layer.shadowOpacity = 1;

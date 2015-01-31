@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="A2W-pF-GsM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="A2W-pF-GsM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -7,15 +7,16 @@
         <!--Tab Bar Controller-->
         <scene sceneID="aKL-NO-C8g">
             <objects>
-                <tabBarController id="A2W-pF-GsM" customClass="PTTabBarController" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="overFullScreen" id="A2W-pF-GsM" customClass="PTTabBarController" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="dGP-2s-Lv6">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="dGP-2s-Lv6" customClass="PTTabBar">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.99607843139999996" green="0.99607843139999996" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="barTintColor" white="0.18701171875" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.84566366790000003" green="0.24445687299999999" blue="0.27788885270000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.25882352939999997" green="0.68235294120000001" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="0.84566366790000003" green="0.24445687299999999" blue="0.27788885270000002" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="HBd-km-O2m" kind="relationship" relationship="viewControllers" id="OyM-6Z-qEB"/>
@@ -234,13 +235,17 @@
         <!--Navigation Controller-->
         <scene sceneID="pOB-XE-ZNz">
             <objects>
-                <navigationController hidesBottomBarWhenPushed="YES" id="HBd-km-O2m" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" id="dQ5-bg-HiD"/>
+                <navigationController wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="HBd-km-O2m" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" enabled="NO" title="" id="dQ5-bg-HiD"/>
                     <navigationBar key="navigationBar" alpha="0.59999999999999998" contentMode="scaleToFill" translucent="NO" id="idi-XG-AgN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
+                    <toolbar key="toolbar" hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="H97-ec-SqN">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="SNa-Es-fOD" kind="relationship" relationship="rootViewController" id="Nm0-gO-qME"/>
                     </connections>
@@ -253,9 +258,7 @@
         <scene sceneID="6lR-jh-Ezd">
             <objects>
                 <navigationController id="ZZ0-rT-Epo" customClass="PTNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" id="HsJ-r6-lRG">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="30" vertical="30"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" enabled="NO" id="HsJ-r6-lRG"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="u28-zc-Rgq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -313,19 +316,18 @@
         <!--首页-->
         <scene sceneID="2JH-88-WCR">
             <objects>
-                <tableViewController id="SNa-Es-fOD" customClass="PTGoodsListController" sceneMemberID="viewController">
+                <tableViewController wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" id="SNa-Es-fOD" customClass="PTGoodsListController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="1" sectionFooterHeight="1" id="xx2-hZ-ibR">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.25882352941176473" green="0.68235294117647061" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="dataSource" destination="SNa-Es-fOD" id="N9o-f4-Zbw"/>
                             <outlet property="delegate" destination="SNa-Es-fOD" id="iVp-zs-rUe"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="首页" id="lBT-Mc-kdr"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <segue destination="mFf-nk-d0o" kind="push" identifier="list2detail" id="v2D-tA-cPm"/>
                     </connections>
@@ -363,7 +365,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="rfd-kO-kQc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -425,7 +427,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="W75-mm-hkn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="669"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="556"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -969,6 +971,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fUv-tv-5Rb"/>
+        <segue reference="XtY-mA-hIE"/>
     </inferredMetricsTieBreakers>
 </document>

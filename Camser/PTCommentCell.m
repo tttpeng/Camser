@@ -7,12 +7,14 @@
 //
 
 #import "PTCommentCell.h"
+#import "PTCommentFrame.h"
+#import "PTComment.h"
 
 @interface PTCommentCell ()
 
-@property (nonatomic,weak) UILabel *timeView;
+@property (nonatomic,weak) UILabel *timeLabel;
 @property (nonatomic,weak) UIImageView *iconView;
-@property (nonatomic,weak) UIButton *textView;
+@property (nonatomic,weak) UILabel *textView;
 
 @end
 
@@ -24,6 +26,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        UILabel *timeLabel = [[UILabel alloc] init];
+        timeLabel.backgroundColor = [UIColor greenColor];
+        self.timeLabel = timeLabel;
+        [self.contentView addSubview:timeLabel   ];
         
         UIImageView *iconView = [[UIImageView alloc]init];
         [self.contentView addSubview:iconView];
@@ -31,11 +37,11 @@
         iconView.backgroundColor = [UIColor redColor];
         self.iconView = iconView;
         
-        UIButton *textView  = [[UIButton alloc]init];
-        textView.titleLabel.numberOfLines = 0;
-        textView.backgroundColor = [UIColor redColor];
+        UILabel *textView  = [[UILabel alloc]init];
+        textView.numberOfLines = 0;
+        textView.backgroundColor = [UIColor cyanColor];
         textView.frame = CGRectMake(50, 10, 140, 40);
-//        textView.titleLabel.font = PTTextFont;
+        textView.font = PTTextFont;
 //        textView.contentEdgeInsets  = UIEdgeInsetsMake(PTTextPadding, PTTextPadding, PTTextPadding, PTTextPadding);
         [self.contentView addSubview:textView];
         self.textView = textView;
@@ -51,7 +57,7 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"message";
+    static NSString *ID = @"comment";
     PTCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[PTCommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
@@ -59,38 +65,23 @@
     return cell;
 }
 
+- (void)setCommentFrame:(PTCommentFrame *)commentFrame
+{
+    _commentFrame = commentFrame;
+    
+    PTComment *comment = commentFrame.goodsComment;
+    //时间
+    self.textView.text = comment.text;
+    self.textView.frame = commentFrame.textF;
+    self.timeLabel.frame = commentFrame.timeF;
+    self.iconView.frame = commentFrame.iconF;
+    
+    
 
-//
-//- (void)setMessageFrame:(PTMessageFrame *)messageFrame
-//{
-//    _messageFrame = messageFrame;
-//    
-//    PTMessage *message = messageFrame.message;
-//    //时间
-//    self.timeView.text = message.time;
-//    self.timeView.frame = messageFrame.timeF;
-//    
-//    
-//    NSString *icon = message.type == PTMessageTypeMe ? @"me" : @"other";
-//    self.iconView.image = [UIImage imageNamed:icon];
-//    self.iconView.frame = messageFrame.iconF;
-//    
-//    [self.textView setTitle:message.text forState:UIControlStateNormal];
-//    self.textView.frame = messageFrame.textF;
-//    
-//    //正文的背景
-//    if (message.type == PTMessageTypeMe) {
-//        
-//        UIImage *lastNormal = [UIImage resizableImage:@"chat_send_nor"];
-//        
-//        [self.textView setBackgroundImage:lastNormal forState:UIControlStateNormal];
-//    }else
-//    {
-//        UIImage *lastNormal = [UIImage resizableImage:@"chat_recive_nor"];
-//        [self.textView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//        [self.textView setBackgroundImage:lastNormal forState:UIControlStateNormal];
-//    }
-//}
+    
+    
+    //正文的背景
+}
 
 
 

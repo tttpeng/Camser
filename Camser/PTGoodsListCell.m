@@ -9,6 +9,7 @@
 #import "PTGoodsListCell.h"
 #import "PTGoodsList.h"
 #import "PTBorderView.h"
+#import "UIImage+MJ.h"
 #import <AVOSCloud/AVOSCloud.h>
 
 
@@ -67,17 +68,20 @@
 
 - (void)setbackView
 {
-    
-    PTBorderView *backView = [[PTBorderView alloc] init];
-    backView.frame = CGRectMake(10, 10, 355, 290);
-    backView.backgroundColor = [UIColor whiteColor];
+
+    UIView *backView = [[PTBorderView alloc] init];
+    backView.frame = CGRectMake(10, 5, 355, 295);
+//    backView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:backView];
     
-    UIImageView *backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_back"]];
-    backImage.frame=  backView.bounds;
-    [backView addSubview:backImage];
+    UIImageView *backImageView = [[UIImageView alloc] init];
+    backImageView.frame=  backView.bounds;
+    UIImage *backImage = [UIImage imageNamed:@"cm2_act_post_bg"];
+    backImage = [UIImage resizedImageWithName:@"cm2_act_post_bg"];
+    backImageView.image = backImage;
+    [backView addSubview:backImageView];
     
-    self.contentView.backgroundColor = [UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:1.000];
+    self.contentView.backgroundColor = [UIColor colorWithRed:0.941 green:0.945 blue:0.970 alpha:1.000];
     
     CGFloat iconViewX = 12;
     CGFloat iconViewY = 12;
@@ -86,7 +90,6 @@
     
     UIImageView *iconView = [[UIImageView alloc] init];
     iconView.frame = CGRectMake(iconViewX, iconViewY, iconViewW, iconViewH);
-//    iconView.image = [UIImage imageNamed:@"ceshitouxiang"];
     iconView.layer.cornerRadius = iconView.frame.size.width / 2;
     iconView.layer.masksToBounds = YES;
     iconView.layer.borderWidth = 3.0f;

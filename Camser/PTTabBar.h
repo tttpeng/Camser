@@ -1,12 +1,13 @@
 //
 //  PTTabBar.h
-//  项目01-旧物交易
+//  Camser
 //
-//  Created by iPeta on 14/12/30.
-//  Copyright (c) 2014年 河南青云. All rights reserved.
+//  Created by iPeta on 15/1/31.
+//  Copyright (c) 2015年 彭涛. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+
 @class PTTabBar;
 @protocol PTTabBarDelegate <NSObject>
 
@@ -15,7 +16,7 @@
 
 @end
 
-@interface PTTabBar : UIView
+@interface PTTabBar : UITabBar
 @property (nonatomic,weak) id<PTTabBarDelegate> delegate;
 - (void)addBackgroundImageWithName:(NSString *)name;
 - (void)addTabButtonWithName:(NSString *)name selName:(NSString *)selName title:(NSString *)title;

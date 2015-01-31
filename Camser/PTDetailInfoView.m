@@ -10,19 +10,21 @@
 #import "PTGoodsList.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "PTImageScrollView.h"
+#import "UIImage+MJ.h"
 #import "PTBigViewController.h"
 
 
 @interface PTDetailInfoView()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconVIew;
 @property (weak, nonatomic) IBOutlet UILabel *username;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *createdTime;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
+@property (weak, nonatomic) IBOutlet UIView *DetailDescView;
+@property (weak, nonatomic) IBOutlet UIView *DetailDescVIew2;
 
 @end
 
@@ -50,6 +52,8 @@
     
     self.imageScroll.delegate = self;
     [self setImageList];
+//    [self setImageBackground];
+
 }
 
 
@@ -86,9 +90,23 @@
 
 + (instancetype)detailInfoViewWithGoods:(PTGoodsList *)goods
 {
+    
     PTDetailInfoView *view = [self detailInfoView];
     view.goods = goods;
     return view;
+}
+
+- (void)setImageBackground
+{
+    UIImage *image = [UIImage imageNamed:@"cm2_act_post_bg"];
+    image = [UIImage resizedImageWithName:@"cm2_act_post_bg"];
+    UIImageView *imageView1 = [[UIImageView alloc] initWithImage:image];
+    imageView1.frame = self.DetailDescView.bounds;
+//    self.DetailDescView.backgroundColor = [UIColor redColor];
+    [self.DetailDescView addSubview:imageView1];
+    imageView1.frame = self.DetailDescVIew2.bounds;
+    [self.DetailDescVIew2 addSubview:imageView1];
+    
 }
 
 + (instancetype)detailInfoView

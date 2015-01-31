@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class PTCommentFrame;
 @interface PTCommentCell : UITableViewCell
+
+
++ (instancetype)cellWithTableView:(UITableView *)tableView;
+
+@property (nonatomic,strong)PTCommentFrame *commentFrame;
+
 
 @end

@@ -34,7 +34,7 @@
     
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
-    CGFloat timeX = 250;
+    CGFloat timeX = 295;
     CGFloat timeY = iconY;
     CGFloat timeW = 60;
     CGFloat timeH = iconH;
@@ -44,18 +44,18 @@
     CGFloat textX = nameX;
     CGFloat textY = iconY + iconH;
     
-    CGSize textMaxSize = CGSizeMake(260, MAXFLOAT);
+    CGSize textMaxSize = CGSizeMake(290, MAXFLOAT);
     NSDictionary *attrs = @{NSFontAttributeName : PTTextFont};
     
     CGSize textSize =[goodsComment.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
     
-    CGSize textLabelSize = CGSizeMake(textSize.width + 5 , textSize.height + 5);
+    CGSize textLabelSize = CGSizeMake(textSize.width + 10 , textSize.height + 10);
     
     _textF = CGRectMake(textX, textY, textLabelSize.width, textLabelSize.height);
     
     
     CGFloat textMaxY = CGRectGetMaxY(_textF);
-    _cellHeight = 2 * padding + nameH + textMaxY;
+    _cellHeight = padding +textMaxY;
     NSLog(@"cell的高度：%f",_cellHeight);
     
     

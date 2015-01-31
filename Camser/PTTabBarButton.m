@@ -32,7 +32,7 @@
     self.titleLabel.textAlignment = NSTextAlignmentCenter;//设置title的字体居中
     
     [self setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
-    [self setTitleColor:[UIColor colorWithRed:0.180 green:0.678 blue:0.631 alpha:1.000] forState:UIControlStateSelected];
+    [self setTitleColor:[UIColor colorWithRed:0.792 green:0.145 blue:0.133 alpha:1.000] forState:UIControlStateSelected];
 
      self.imageView.contentMode =UIViewContentModeScaleAspectFit;
 }

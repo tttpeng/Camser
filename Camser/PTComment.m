@@ -10,7 +10,7 @@
 
 @implementation PTComment
 
-+ (instancetype)messageWithDict:(NSDictionary *)dict
++ (instancetype)commentWithDict:(NSDictionary *)dict
 {
     return [[self alloc]initWithDict:dict];
 }
@@ -18,7 +18,7 @@
 {
     self = [super init];
     if (self) {
-        self.text = dict[@"text"];
+        self.text = dict[@"commentText"];
         self.user = dict[@"author"];
     }
     

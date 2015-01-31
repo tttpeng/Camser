@@ -12,6 +12,7 @@
 #import "PTGoodsList.h"
 #import "PTGoodsListCell.h"
 #import "MJRefresh.h"
+#import "PTComment.h"
 #import "PTDetailViewController.h"
 
 @interface PTGoodsListController ()
@@ -24,12 +25,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.backgroundColor =  [UIColor colorWithRed:0.87 green:0.87 blue:0.87 alpha:1];
-//    self.tableView.backgroundColor = [UIColor]
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.941 green:0.945 blue:0.970 alpha:1.000];
     [self setupRefresh];
     
 }
@@ -251,12 +251,35 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PTGoodsList *goods = self.goods[indexPath.section];
+  
     [self performSegueWithIdentifier:@"list2detail" sender:goods];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    PTGoodsList *goods = sender;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    AVObject *goodsObj = [query getObjectWithId:goods.objectId];
+    AVRelation *relation =[goodsObj relationforKey:@"comment"];
+    
+    AVQuery *queryC = [relation query];
+    [queryC includeKey:@"author"];
+    NSArray *array =    [queryC findObjects];
+    AVObject *comment = array[0];
+    NSString *text = [comment objectForKey:@"commentText"];
+    AVUser *user = [comment objectForKey:@"author"];
+    NSString *name = [user objectForKey:@"nickName"];
+    
+    NSMutableArray *commentArray = [NSMutableArray array];
+    for (AVObject *dict in array) {
+        PTComment *comment1 = [PTComment commentWithDict:(NSDictionary *)dict];
+        NSLog(@"------%@",comment1.text);
+        [commentArray addObject:comment1];
+    }
+    
     PTDetailViewController *detailVc = segue.destinationViewController;
+    
+    detailVc.comments = commentArray;
     detailVc.goods = sender;
 }
 @end

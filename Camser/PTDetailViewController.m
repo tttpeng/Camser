@@ -11,6 +11,9 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "PTGoodsList.h"
 #import "MBProgressHUD+PT.h"
+#import "PTCommentFrame.h"
+#import "PTCommentCell.h"
+
 
 @interface PTDetailViewController ()<UITableViewDelegate,UITableViewDataSource,PTDetailInfoViewDelegate,UIGestureRecognizerDelegate>
 - (IBAction)sendMessage:(UIButton *)sender;
@@ -20,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) PTDetailInfoView *headerView;
-@property (strong, nonatomic) NSArray *comments;
+@property (strong,nonatomic) NSMutableArray *commentFrameArray;
 - (IBAction)favoriteButton:(id)sender;
 
 @end
@@ -37,6 +40,20 @@
 
 //    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
+}
+
+- (NSMutableArray *)commentFrameArray
+{
+    if (_commentFrameArray == nil) {
+        _commentFrameArray = [NSMutableArray array];
+        for (PTComment *comment in _comments) {
+        PTCommentFrame *cFrame = [[PTCommentFrame alloc] init];
+            cFrame.goodsComment = comment;
+            [_commentFrameArray addObject:cFrame];
+        }
+        
+    }
+    return _commentFrameArray;
 }
 
 - (NSArray *)comments
@@ -119,20 +136,18 @@
 }
 
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.comments.count;
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.commentFrameArray.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+    PTCommentCell *cell = [PTCommentCell cellWithTableView:tableView];
+    cell.commentFrame = self.commentFrameArray[indexPath.row];
     return cell;
 }
 
@@ -174,6 +189,13 @@
     
     
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PTCommentFrame *cf = self.commentFrameArray[indexPath.row];
+    return cf.cellHeight;
+}
+
 @end
 
 
