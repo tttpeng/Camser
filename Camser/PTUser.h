@@ -16,4 +16,8 @@
 
 @property (nonatomic,copy)NSString *nickName;
 
+- (instancetype)initWithDict:(NSDictionary *)dict;
+
++ (instancetype)userWithDict:(NSDictionary *)dict;
+
 @end

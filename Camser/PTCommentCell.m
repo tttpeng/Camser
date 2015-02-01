@@ -9,12 +9,14 @@
 #import "PTCommentCell.h"
 #import "PTCommentFrame.h"
 #import "PTComment.h"
+#import "PTUser.h"
 
 @interface PTCommentCell ()
 
 @property (nonatomic,weak) UILabel *timeLabel;
 @property (nonatomic,weak) UIImageView *iconView;
 @property (nonatomic,weak) UILabel *textView;
+@property (nonatomic,weak) UILabel *nameLable;
 
 @end
 
@@ -27,9 +29,11 @@
     if (self) {
         
         UILabel *timeLabel = [[UILabel alloc] init];
-        timeLabel.backgroundColor = [UIColor greenColor];
+        timeLabel.font = [UIFont systemFontOfSize:11];
+        timeLabel.textColor = [UIColor colorWithWhite:0.529 alpha:1.000];
         self.timeLabel = timeLabel;
-        [self.contentView addSubview:timeLabel   ];
+        [self.contentView addSubview:timeLabel];
+        
         
         UIImageView *iconView = [[UIImageView alloc]init];
         [self.contentView addSubview:iconView];
@@ -37,17 +41,20 @@
         iconView.backgroundColor = [UIColor redColor];
         self.iconView = iconView;
         
+        UILabel *nameLable = [[UILabel alloc] init];
+        nameLable.font = [UIFont systemFontOfSize:14];
+        [self.contentView addSubview:nameLable];
+        self.nameLable = nameLable;
+        
         UILabel *textView  = [[UILabel alloc]init];
         textView.numberOfLines = 0;
-        textView.backgroundColor = [UIColor cyanColor];
         textView.frame = CGRectMake(50, 10, 140, 40);
         textView.font = PTTextFont;
-//        textView.contentEdgeInsets  = UIEdgeInsetsMake(PTTextPadding, PTTextPadding, PTTextPadding, PTTextPadding);
         [self.contentView addSubview:textView];
         self.textView = textView;
         
         //设置背景色
-        self.backgroundColor = [UIColor colorWithWhite:0.031 alpha:1.000];
+
     }
     return self;
 }
@@ -70,17 +77,17 @@
     _commentFrame = commentFrame;
     
     PTComment *comment = commentFrame.goodsComment;
-    //时间
+
     self.textView.text = comment.text;
+    self.iconView.image = comment.user.imageFile;
+    self.nameLable.text = comment.user.nickName;
+    self.timeLabel.text = comment.createdTime;
+    
     self.textView.frame = commentFrame.textF;
     self.timeLabel.frame = commentFrame.timeF;
     self.iconView.frame = commentFrame.iconF;
-    
-    
+    self.nameLable.frame = commentFrame.nameF;
 
-    
-    
-    //正文的背景
 }
 
 

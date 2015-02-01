@@ -7,6 +7,7 @@
 //
 
 #import "PTUser.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @implementation PTUser
 
@@ -15,7 +16,11 @@
     self = [super init];
     if (self) {
         self.objectId = dict[@"objectId"];
-        self.imageFile = dict[@"imageFile"];
+        NSDictionary *fileDict = dict[@"imageFile"];
+        NSString *url = fileDict[@"url"];
+        AVFile *iconFile = [AVFile fileWithURL:url];
+        NSData *iconData = [iconFile getData];
+        self.imageFile = [UIImage imageWithData:iconData];
         self.nickName = dict[@"nickName"];
     }
     return self;

@@ -49,7 +49,7 @@
     fmt.dateFormat = @"yyyy-MM-dd HH:mm:ss";
 #warning 真机调试下, 必须加上这段
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSDate *createdDate = _updatedAt;
+    NSDate *createdDate = _createdAt;
     
     // 2..判断微博发送时间 和 现在时间 的差距
     if (createdDate.isToday) { // 今天

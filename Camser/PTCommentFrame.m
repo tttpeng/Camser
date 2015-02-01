@@ -58,9 +58,7 @@
     _cellHeight = padding +textMaxY;
     NSLog(@"cell的高度：%f",_cellHeight);
     
-    
-    
-    
+
 }
 
 @end

@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-@class AVUser;
+@class PTUser;
 @class PTGoodsList;
 @interface PTComment : NSObject
 
 @property (nonatomic,copy)NSString *text;
-@property (nonatomic,strong)AVUser *user;
-@property (nonatomic,copy)NSDate *createdAt;
+
+@property (nonatomic,strong)PTUser *user;
+
+@property (nonatomic,copy)NSString *createdAt;
+
+
+@property (nonatomic, copy, readonly) NSString *createdTime;
+
+
 + (instancetype)commentWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

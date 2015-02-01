@@ -96,18 +96,6 @@
     return view;
 }
 
-- (void)setImageBackground
-{
-    UIImage *image = [UIImage imageNamed:@"cm2_act_post_bg"];
-    image = [UIImage resizedImageWithName:@"cm2_act_post_bg"];
-    UIImageView *imageView1 = [[UIImageView alloc] initWithImage:image];
-    imageView1.frame = self.DetailDescView.bounds;
-//    self.DetailDescView.backgroundColor = [UIColor redColor];
-    [self.DetailDescView addSubview:imageView1];
-    imageView1.frame = self.DetailDescVIew2.bounds;
-    [self.DetailDescVIew2 addSubview:imageView1];
-    
-}
 
 + (instancetype)detailInfoView
 {

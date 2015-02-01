@@ -13,6 +13,7 @@
 #import "MBProgressHUD+PT.h"
 #import "PTCommentFrame.h"
 #import "PTCommentCell.h"
+#import "PTComment.h"
 
 
 @interface PTDetailViewController ()<UITableViewDelegate,UITableViewDataSource,PTDetailInfoViewDelegate,UIGestureRecognizerDelegate>
@@ -38,7 +39,6 @@
     self.headerView = view;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 
-//    self.navigationController.interactivePopGestureRecognizer.delegate = self;
     
 }
 
@@ -46,6 +46,7 @@
 {
     if (_commentFrameArray == nil) {
         _commentFrameArray = [NSMutableArray array];
+        [self loadComments];
         for (PTComment *comment in _comments) {
         PTCommentFrame *cFrame = [[PTCommentFrame alloc] init];
             cFrame.goodsComment = comment;
@@ -56,23 +57,27 @@
     return _commentFrameArray;
 }
 
-- (NSArray *)comments
-{
-    if (_comments == nil) {
-        
-        PTGoodsList *goods = self.headerView.goods;
-        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-        AVObject *goodsObj = [query getObjectWithId:goods.objectId];
-        AVRelation *relation =[goodsObj relationforKey:@"comment"];
-        [[relation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            NSLog(@"%@",objects);
-        }];
-        
-        
-    }
-    return  _comments;
-}
 
+- (void)loadComments
+{
+    PTGoodsList *goods = self.goods;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    AVObject *goodsObj = [query getObjectWithId:goods.objectId];
+    AVRelation *relation =[goodsObj relationforKey:@"comment"];
+    
+    AVQuery *queryC = [relation query];
+    [queryC includeKey:@"author"];
+    NSArray *array = [queryC findObjects];
+    
+    NSMutableArray *commentArray = [NSMutableArray array];
+    for (AVObject *oneComment in array) {
+        NSDictionary *dict = [oneComment dictionaryForObject];
+        PTComment *comment = [PTComment commentWithDict:dict];
+        NSLog(@">>>%@",dict);
+        [commentArray addObject:comment];
+    }
+    self.comments = commentArray;
+}
 -(BOOL)checkFavorite
 {
     PTGoodsList *goods = self.headerView.goods;
@@ -93,16 +98,6 @@
     return self.favoriteButton.selected = NO;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    NSLog(@">>>%@",touch.view);
-    if (touch.view == self.headerView.imageScroll) {
-        return  NO;
-    }
-    return YES;
-}
-
-
 /**
  *  监听通知
  */
@@ -113,9 +108,7 @@
     CGRect keyboardFrame =  [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     CGFloat transfromY = keyboardFrame.origin.y - self.view.frame.size.height;
-    NSLog(@"----%f",keyboardFrame.origin.y);
-    NSLog(@">>>>>>%f",self.postCommentView.frame.origin.y);
-    NSLog(@"======%f",self.view.frame.size.height);
+
     [UIView animateWithDuration:duration  animations:^{
         self.postCommentView.transform = CGAffineTransformMakeTranslation(0, transfromY);
     }];
@@ -124,17 +117,9 @@
 
 - (void)skip2bigViewController:(UIViewController *)viewController
 {
-//    viewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     viewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:viewController animated:YES completion:nil];
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 
@@ -176,18 +161,18 @@
 
     AVUser *current = [AVUser currentUser];
     NSString *commentText = self.commentTextView.text;
-//    AVQuery *query = [AVQuery queryWithClassName:@"comment"];
     AVObject *comment = [AVObject objectWithClassName:@"comment"];
     [comment setObject:commentText forKey:@"commentText"];
     [comment setObject:current forKey:@"author"];
     [comment save];
+    
     AVRelation *relation = [goodsobj relationforKey:@"comment"];
     [relation addObject:comment];
     [goodsobj save];
+    [_commentFrameArray removeAllObjects];
+    _commentFrameArray = nil;
+    [self.tableView reloadData];
     [MBProgressHUD hideHUD];
-
-    
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

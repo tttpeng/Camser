@@ -104,10 +104,7 @@
             view.zoomScale = 1;
         }
     }
-    
     self.numberLabel.text = numberstr;
-    
-    
 }
 
 - (void)hide:(UIGestureRecognizer *)gesture

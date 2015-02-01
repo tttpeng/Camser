@@ -94,11 +94,11 @@
     
     if (self.goods.count) {
         PTGoodsList *lastGoods = self.goods[0];
-        NSDate *lastDate = lastGoods.updatedAt;
-        [query whereKey:@"updatedAt" greaterThan:lastDate];
+        NSDate *lastDate = lastGoods.createdAt;
+        [query whereKey:@"createdAt" greaterThan:lastDate];
     }
     
-    [query orderByDescending:@"updatedAt"];
+    [query orderByDescending:@"createdAt"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if (!error) {
@@ -257,29 +257,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    PTGoodsList *goods = sender;
-    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
-    AVObject *goodsObj = [query getObjectWithId:goods.objectId];
-    AVRelation *relation =[goodsObj relationforKey:@"comment"];
-    
-    AVQuery *queryC = [relation query];
-    [queryC includeKey:@"author"];
-    NSArray *array =    [queryC findObjects];
-    AVObject *comment = array[0];
-    NSString *text = [comment objectForKey:@"commentText"];
-    AVUser *user = [comment objectForKey:@"author"];
-    NSString *name = [user objectForKey:@"nickName"];
-    
-    NSMutableArray *commentArray = [NSMutableArray array];
-    for (AVObject *dict in array) {
-        PTComment *comment1 = [PTComment commentWithDict:(NSDictionary *)dict];
-        NSLog(@"------%@",comment1.text);
-        [commentArray addObject:comment1];
-    }
-    
+
     PTDetailViewController *detailVc = segue.destinationViewController;
-    
-    detailVc.comments = commentArray;
     detailVc.goods = sender;
 }
 @end

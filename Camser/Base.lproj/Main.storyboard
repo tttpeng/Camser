@@ -317,7 +317,7 @@
         <scene sceneID="2JH-88-WCR">
             <objects>
                 <tableViewController wantsFullScreenLayout="YES" extendedLayoutIncludesOpaqueBars="YES" id="SNa-Es-fOD" customClass="PTGoodsListController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="300" sectionHeaderHeight="1" sectionFooterHeight="1" id="xx2-hZ-ibR">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="280" sectionHeaderHeight="1" sectionFooterHeight="1" id="xx2-hZ-ibR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

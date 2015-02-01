@@ -15,7 +15,6 @@
 		70103CD91A675319002DF14D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70103CD81A675319002DF14D /* Images.xcassets */; };
 		70103CDC1A675319002DF14D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70103CDA1A675319002DF14D /* LaunchScreen.xib */; };
 		70103CE81A675319002DF14D /* CamserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 70103CE71A675319002DF14D /* CamserTests.m */; };
-		70103CF71A675911002DF14D /* PTTabBar1.m in Sources */ = {isa = PBXBuildFile; fileRef = 70103CF21A675911002DF14D /* PTTabBar1.m */; };
 		70103CF81A675911002DF14D /* PTTabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 70103CF41A675911002DF14D /* PTTabBarButton.m */; };
 		70103CF91A675911002DF14D /* PTTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70103CF61A675911002DF14D /* PTTabBarController.m */; };
 		70103D021A6759F2002DF14D /* PTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70103D011A6759F2002DF14D /* PTNavigationController.m */; };
@@ -87,8 +86,6 @@
 		70103CE11A675319002DF14D /* CamserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CamserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70103CE61A675319002DF14D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70103CE71A675319002DF14D /* CamserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CamserTests.m; sourceTree = "<group>"; };
-		70103CF11A675911002DF14D /* PTTabBar1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTabBar1.h; sourceTree = "<group>"; };
-		70103CF21A675911002DF14D /* PTTabBar1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTabBar1.m; sourceTree = "<group>"; };
 		70103CF31A675911002DF14D /* PTTabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTabBarButton.h; sourceTree = "<group>"; };
 		70103CF41A675911002DF14D /* PTTabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTTabBarButton.m; sourceTree = "<group>"; };
 		70103CF51A675911002DF14D /* PTTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTTabBarController.h; sourceTree = "<group>"; };
@@ -296,8 +293,6 @@
 		70103CFC1A67594C002DF14D /* VIew */ = {
 			isa = PBXGroup;
 			children = (
-				70103CF11A675911002DF14D /* PTTabBar1.h */,
-				70103CF21A675911002DF14D /* PTTabBar1.m */,
 				70103CF31A675911002DF14D /* PTTabBarButton.h */,
 				70103CF41A675911002DF14D /* PTTabBarButton.m */,
 				CC25AD481A7CBD46002B9189 /* PTTabBar.h */,
@@ -746,7 +741,6 @@
 				CC00FA751A7A7C3E0041287C /* PTComment.m in Sources */,
 				CCAC58171A77C062001998B0 /* PTImageView.m in Sources */,
 				CCAC580B1A77B2AA001998B0 /* RMDownloadIndicator.m in Sources */,
-				70103CF71A675911002DF14D /* PTTabBar1.m in Sources */,
 				CC4ED99E1A6FC7E6006E11B7 /* UIScrollView+MJExtension.m in Sources */,
 				70103CD11A675319002DF14D /* AppDelegate.m in Sources */,
 				7032AC2D1A67855F00ED2D8F /* PTRegisterViewController.m in Sources */,
