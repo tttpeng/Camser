@@ -19,6 +19,8 @@
 @property (nonatomic,assign,readonly) CGRect iconF;
 @property (nonatomic,assign,readonly) CGRect timeF;
 @property (nonatomic,assign,readonly) CGRect nameF;
+@property (nonatomic,assign,readonly) CGRect backF;
 @property (nonatomic,assign,readonly) CGFloat cellHeight;
+
 
 @end

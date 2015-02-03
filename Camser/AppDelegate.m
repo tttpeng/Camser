@@ -26,6 +26,7 @@
     
     application.statusBarStyle = UIStatusBarStyleLightContent;
     application.statusBarHidden = NO;
+//    setenv("LOG_CURL", "YES", 0);
     
     return YES;
 }

@@ -16,6 +16,7 @@
 #import "PTDetailViewController.h"
 
 @interface PTGoodsListController ()
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *goods;
 @property (nonatomic, assign) NSInteger total;
 @property (nonatomic, strong) AVQuery *query;
@@ -30,8 +31,9 @@
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
 //    self.automaticallyAdjustsScrollViewInsets = NO;
     self.navigationController.view.backgroundColor = [UIColor colorWithRed:0.941 green:0.945 blue:0.970 alpha:1.000];
+    self.tableView.backgroundColor = [UIColor colorWithRed:0.941 green:0.945 blue:0.970 alpha:1.000];
     [self setupRefresh];
-    
+   
 }
 
 - (NSMutableArray *)goods
@@ -47,7 +49,6 @@
 
 - (NSArray *)goodsArrayWithAVObjects:(NSArray *)AVArray
 {
-    [AVOSCloud setLastModifyEnabled:YES];
     NSMutableArray *allGood = [NSMutableArray array];
     for (AVObject *avobj in AVArray) {
         AVUser *goodUser = [avobj objectForKey:@"author"];
@@ -123,12 +124,12 @@
 - (void)footerRereshing
 {
     PTGoodsList *lastGoods = [self.goods lastObject];
-    NSDate *lastdate = lastGoods.updatedAt;
+    NSDate *lastdate = lastGoods.createdAt;
     AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
     query.cachePolicy = kPFCachePolicyCacheElseNetwork;
     query.limit = 5;
-    [query whereKey:@"updatedAt" lessThan:lastdate];
-    [query orderByDescending:@"updatedAt"];
+    [query whereKey:@"createdAt" lessThan:lastdate];
+    [query orderByDescending:@"createdAt"];
     [query includeKey:@"imageArray"];
     [query includeKey:@"author"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -144,7 +145,7 @@
     AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
     [query includeKey:@"imageArray"];
     query.limit = 5;
-    [query orderByDescending:@"updatedAt"];
+    [query orderByDescending:@"createdAt"];
     [query includeKey:@"author"];
     __block NSMutableArray *array = [NSMutableArray array];
     if(isOne)

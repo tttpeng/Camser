@@ -52,6 +52,8 @@
     
     self.imageScroll.delegate = self;
     [self setImageList];
+    
+    
 //    [self setImageBackground];
 
 }

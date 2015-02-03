@@ -175,7 +175,7 @@
 		CCD98E4E1A754E4A00852242 /* PTCeshiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCeshiViewController.m; sourceTree = "<group>"; };
 		CCEE4C621A7BA0E200F80753 /* ceshi.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ceshi.xib; sourceTree = "<group>"; };
 		CCEE4C651A7BAB6600F80753 /* PTCommentFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PTCommentFrame.h; sourceTree = "<group>"; };
-		CCEE4C661A7BAB6600F80753 /* PTCommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCommentFrame.m; sourceTree = "<group>"; };
+		CCEE4C661A7BAB6600F80753 /* PTCommentFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PTCommentFrame.m; sourceTree = "<group>"; usesTabs = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,8 +549,8 @@
 		CC96E7181A6D5DF7007B5E66 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CC96E71A1A6D5E77007B5E66 /* PTSaleEditController.m */,
 				CC96E7191A6D5E77007B5E66 /* PTSaleEditController.h */,
+				CC96E71A1A6D5E77007B5E66 /* PTSaleEditController.m */,
 				CC76717C1A72202000883521 /* PTSaleController.h */,
 				CC76717D1A72202000883521 /* PTSaleController.m */,
 			);
@@ -885,6 +885,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Zhang shuangfei (86DMMR6Z98)";
 				INFOPLIST_FILE = Camser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -896,6 +897,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Camser/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -89,16 +89,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    //创建CLLocationManager对象
-//    self.locationManager = [[CLLocationManager alloc] init];
-//    [self.locationManager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
-//    [self.locationManager requestWhenInUseAuthorization];
-//    //设置代理为自己
-//    self.locationManager.delegate = self;
-//    [self.locationManager startUpdatingLocation];
-//
-    
-    
     UIToolbar * topView = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 30)];
     [topView setBarStyle:UIBarStyleBlackTranslucent];
     topView.alpha = 0.5;

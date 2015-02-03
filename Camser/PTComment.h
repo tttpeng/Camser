@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong)PTUser *user;
 
+@property (nonatomic,strong)PTUser *replyUser;
+
 @property (nonatomic,copy)NSString *createdAt;
 
 

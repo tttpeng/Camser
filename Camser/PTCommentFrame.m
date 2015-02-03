@@ -8,6 +8,7 @@
 
 #import "PTCommentFrame.h"
 #import "PTComment.h"
+#import "PTUser.h"
 
 
 @implementation PTCommentFrame
@@ -16,12 +17,12 @@
 {
     _goodsComment = goodsComment;
     
-    CGFloat padding = 10;
+    CGFloat padding = 7;
     
     CGFloat iconX = padding;
     CGFloat iconY = padding;
-    CGFloat iconW = 35;
-    CGFloat iconH = 35;
+    CGFloat iconW = 25;
+    CGFloat iconH = 25;
     _iconF = CGRectMake(iconX, iconY, iconW, iconH);
     
     
@@ -34,31 +35,46 @@
     
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
-    CGFloat timeX = 295;
+    CGFloat timeX = 265;
     CGFloat timeY = iconY;
-    CGFloat timeW = 60;
+    CGFloat timeW = 80;
     CGFloat timeH = iconH;
     _timeF = CGRectMake(timeX, timeY, timeW, timeH);
     
     
     CGFloat textX = nameX;
-    CGFloat textY = iconY + iconH;
+    CGFloat textY = iconY + iconH + 3;
     
     CGSize textMaxSize = CGSizeMake(290, MAXFLOAT);
-    NSDictionary *attrs = @{NSFontAttributeName : PTTextFont};
+    UIFont *font = [UIFont fontWithName:@"Courier-Bold" size:13];
+    NSDictionary *attrs = @{NSFontAttributeName : font,NSForegroundColorAttributeName : [UIColor colorWithWhite:0.289 alpha:1.000]};
+
+    NSString *text;
+    if (goodsComment.replyUser.nickName) {
+        text =[NSString stringWithFormat:@"回复%@：%@",goodsComment.replyUser.nickName,goodsComment.text];
+    }else{
+        text = goodsComment.text;
+    }
     
-    CGSize textSize =[goodsComment.text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+    CGSize textSize = [text boundingRectWithSize:textMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
     
-    CGSize textLabelSize = CGSizeMake(textSize.width + 10 , textSize.height + 10);
+    CGSize textLabelSize = CGSizeMake(textSize.width , textSize.height + 13);
     
     _textF = CGRectMake(textX, textY, textLabelSize.width, textLabelSize.height);
     
     
     CGFloat textMaxY = CGRectGetMaxY(_textF);
-    _cellHeight = padding +textMaxY;
-    NSLog(@"cell的高度：%f",_cellHeight);
     
-
+    
+    CGFloat backX = 10;
+    CGFloat backY = 4;
+    CGFloat backW =  355;
+    CGFloat backH = padding + textMaxY + padding;
+    _backF = CGRectMake(backX, backY, backW, backH);
+    
+    _cellHeight = backH + 8;
+    
+    
 }
 
 @end

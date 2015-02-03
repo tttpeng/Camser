@@ -18,6 +18,7 @@
     if (self = [super init]) {
         self.objectId = dict[@"objectId"];
         self.createdAt  = dict[@"createdAt"];
+        NSLog(@"goods --------%@",self.createdAt);
         self.updatedAt = dict[@"updatedAt"];
         self.text = dict[@"goodsText"];
         self.price = dict[@"price"];

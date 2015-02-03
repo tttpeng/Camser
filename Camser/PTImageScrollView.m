@@ -44,7 +44,6 @@
 
 - (void)zoom2Rect:(UITapGestureRecognizer *)gesture
 {
-    NSLog(@"====%@",gesture);
     UIScrollView *scrollView = (UIScrollView *)gesture.view;
     CGPoint location = [gesture locationInView:gesture.view];
     if (scrollView.zoomScale == 1) {

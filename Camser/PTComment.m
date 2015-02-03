@@ -22,12 +22,14 @@
     self = [super init];
     if (self) {
         self.text = dict[@"commentText"];
-
-        self.user = [PTUser userWithDict:dict[@"author"]];
-        NSDictionary *dateDcit = dict[@"createdAt"];
-        self.createdAt = dateDcit[@"iso"];
         
-        NSLog(@"%@",self.createdAt);
+        self.user = [PTUser userWithDict:dict[@"author"]];
+        self.replyUser = [PTUser userWithDict:dict[@"replyTo"]];
+        NSDictionary *dateDcit = dict[@"createdAt"];
+        NSLog(@"1111^^^>>>,%@",dict[@"createdAt"]);
+        self.createdAt = dateDcit[@"iso"];
+        NSLog(@"2222^^^>>>,%@",self.createdAt);
+        
     }
     return self;
 }
@@ -38,11 +40,11 @@
     // 1.获得微博的发送时间
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     fmt.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.zzz'Z'";
-#warning 真机调试下, 必须加上这段
+    
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-
+    
     NSDate *createdDate = [fmt dateFromString:_createdAt];
-
+    
     
     // 2..判断微博发送时间 和 现在时间 的差距
     if (createdDate.isToday) { // 今天
@@ -57,11 +59,11 @@
         fmt.dateFormat = @"昨天 HH:mm";
         return [fmt stringFromDate:createdDate];
     } else if (createdDate.isThisYear) { // 今年(至少是前天)
-        fmt.dateFormat = @"MM-dd HH:mm";
-        return [fmt stringFromDate:createdDate];
+        //        fmt.dateFormat = @"MM-dd HH:mm";
+        return [NSString stringWithFormat:@"%ld天前", (long)createdDate.deltaWithNow.day];
+        
     } else { // 非今年
         fmt.dateFormat = @"yyyy-MM-dd HH:mm";
-        NSString *sterr = [fmt stringFromDate:createdDate];
         return [fmt stringFromDate:createdDate];
     }
 }

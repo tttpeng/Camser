@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PTGoodsListController : UITableViewController
+@interface PTGoodsListController : UIViewController
 
 @end

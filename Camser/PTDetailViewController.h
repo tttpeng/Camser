@@ -13,5 +13,5 @@
 @interface PTDetailViewController : UIViewController
 
 @property (nonatomic,strong) PTGoodsList* goods;
-@property (nonatomic,strong) NSArray *comments;
+@property (nonatomic,strong) NSMutableArray *comments;
 @end
