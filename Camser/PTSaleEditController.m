@@ -379,7 +379,7 @@
     [current saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             self.oneGoods = nil;
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
@@ -426,9 +426,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        [_oneGoods delete];
+        [_oneGoods deleteInBackground];
         [_locationManager stopUpdatingLocation];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
     
 }

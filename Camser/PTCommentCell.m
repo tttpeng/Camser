@@ -10,6 +10,7 @@
 #import "PTCommentFrame.h"
 #import "PTComment.h"
 #import "PTUser.h"
+#import <AVOSCloud/AVOSCloud.h>
 #import "UIImage+MJ.h"
 #import<CoreText/CoreText.h>
 
@@ -124,8 +125,12 @@
     UIFont *font = [UIFont fontWithName:@"Courier-Bold" size:13];
     [attributedStr01 addAttribute:NSFontAttributeName value:font range:range];
     
+    AVFile *file = [AVFile fileWithURL:comment.user.pic_url];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        self.iconView.image = [UIImage imageWithData:data];
+    }];
+    
     self.textView.attributedText = attributedStr01;
-    self.iconView.image = comment.user.imageFile;
     self.nameLable.text = comment.user.nickName;
     self.timeLabel.text = comment.createdTime;
     

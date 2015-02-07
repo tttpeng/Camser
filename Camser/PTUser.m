@@ -16,12 +16,9 @@
     self = [super init];
     if (self) {
         self.objectId = dict[@"objectId"];
-        NSDictionary *fileDict = dict[@"imageFile"];
-        NSString *url = fileDict[@"url"];
-        AVFile *iconFile = [AVFile fileWithURL:url];
-        NSData *iconData = [iconFile getData];
-        self.imageFile = [UIImage imageWithData:iconData];
+        self.pic_url = dict[@"imageFile"][@"url"];;
         self.nickName = dict[@"nickName"];
+        self.userId = dict[@"username"];
     }
     return self;
 }

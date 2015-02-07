@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface PTHomeViewController : UITableViewController
+@interface PTHomeViewController : UIViewController
 
 @property (nonatomic,strong)NSMutableArray *data;
 @end

@@ -10,6 +10,7 @@
 #import "PTGoodsList.h"
 #import "PTBorderView.h"
 #import "UIImage+MJ.h"
+#import "PTUser.h"
 #import <AVOSCloud/AVOSCloud.h>
 
 
@@ -73,7 +74,7 @@
     CGFloat padding = 10.0f;
     
     UIView *backView = [[PTBorderView alloc] init];
-    backView.frame = CGRectMake(padding, 5, kWidth - padding * 2, 275);
+    backView.frame = CGRectMake(padding, 5, kWidth - padding * 2, 305);
     [self.contentView addSubview:backView];
     
     UIImageView *backImageView = [[UIImageView alloc] init];
@@ -190,33 +191,37 @@
     [backView addSubview:localLabel];
     
     UIView *divideLine = [[UIView alloc] init];
-    divideLine.frame = CGRectMake(0, 291, 355, 1);
+    divideLine.frame = CGRectMake(0, CGRectGetMaxY(locationName.frame) + padding, 355, 0.5);
     divideLine.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
     divideLine.alpha = 0.3;
-    //    [backView addSubview:divideLine];
+    [backView addSubview:divideLine];
     
     CGFloat attentionBtnX = 0;
-    CGFloat attentionBtnY = 291;
+    CGFloat attentionBtnY = CGRectGetMaxY(divideLine.frame);
     CGFloat attentionBtnW = 125;
-    CGFloat attentionBtnH = 44;
+    CGFloat attentionBtnH = 30;
     
     UIButton *attentionBtn = [[UIButton alloc] init];
     attentionBtn.frame = CGRectMake(attentionBtnX, attentionBtnY, attentionBtnW, attentionBtnH);
     [attentionBtn setImage:[UIImage imageNamed:@"home_collect"] forState:UIControlStateNormal];
     [attentionBtn setTitle:@"4" forState:UIControlStateNormal];
     [attentionBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
+    [attentionBtn setImage:[UIImage imageNamed:@"home_collected"] forState:UIControlStateSelected];
+    [attentionBtn addTarget:self action:@selector(favoriteButtonClick) forControlEvents:UIControlEventTouchUpInside];
     attentionBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     attentionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
-    //    [backView addSubview:attentionBtn];
+    self.attentionBtn = attentionBtn;
+    [backView addSubview:attentionBtn];
     
     UIButton *reviewBtn = [[UIButton alloc] init];
     reviewBtn.frame = CGRectMake(attentionBtnX + 125, attentionBtnY, attentionBtnW, attentionBtnH);
     [reviewBtn setImage:[UIImage imageNamed:@"home_comment"] forState:UIControlStateNormal];
-    [reviewBtn setTitle:@"13" forState:UIControlStateNormal];
+//    [reviewBtn setTitle:@"13" forState:UIControlStateNormal];
     reviewBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     reviewBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
     [reviewBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
-    //    [backView addSubview:reviewBtn];
+    self.reviewBtn = reviewBtn;
+    [backView addSubview:reviewBtn];
     
     UIButton *shareBtn = [[UIButton alloc] init];
     shareBtn.frame = CGRectMake(attentionBtnX + 250, attentionBtnY, attentionBtnW, attentionBtnH);
@@ -225,43 +230,151 @@
     shareBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     shareBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -12, 0, 0);
     [shareBtn setTitleColor:[UIColor colorWithWhite:0.557 alpha:1.000] forState:UIControlStateNormal];
-    //    [backView addSubview:shareBtn];
+    [backView addSubview:shareBtn];
     
 }
+
+
+
+
+
+
+- (void)checkCommentCount
+{
+    PTGoodsList *goods = self.goodsList;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query getObjectInBackgroundWithId:goods.objectId block:^(AVObject *object, NSError *error) {
+        AVObject *goodsObj = object;
+        AVRelation *relation =[goodsObj relationforKey:@"comment"];
+        AVRelation *attendRelation = [goodsObj relationforKey:@"likedUser"];
+        AVQuery *queryAttend = [attendRelation query];
+        AVQuery *queryC = [relation query];
+        NSInteger commentNum = [queryC countObjects];
+        NSInteger attendNum = [queryAttend countObjects];
+            [self.reviewBtn setTitle:[NSString stringWithFormat:@"%ld",(long)commentNum] forState:UIControlStateNormal];
+            [self.attentionBtn setTitle:[NSString stringWithFormat:@"%ld",(long)attendNum] forState:UIControlStateNormal];
+        
+        
+    }];
+}
+
+
+
+
+-(void)checkFavorite
+{
+    AVUser *current = [AVUser currentUser];
+    AVRelation *relation = [current relationforKey:@"likeGoods"];
+    AVQuery *query = [relation query];
+    [query whereKey:@"objectId" equalTo:self.goodsList.objectId];
+    [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+        if (number) {
+            self.attentionBtn.selected = YES;
+        }else
+        {
+            self.attentionBtn.selected = NO;
+        }
+        NSLog(@"-------->%ld",(long)number);
+    }];
+    
+}
+
+- (void)favoriteButtonClick{
+    if ([self whetherLogin]) {
+        AVUser *current = [AVUser currentUser];
+        PTGoodsList *goods = self.goodsList;
+        AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+        NSError *error;
+        AVObject *goodsobj = [query getObjectWithId:goods.objectId error:&error];
+        NSLog(@"%@",error);
+        AVRelation *relation = [current relationforKey:@"likeGoods"];
+        AVRelation *goodsRelation = [goodsobj relationforKey:@"likedUser"];
+        if (current) {
+            if (self.attentionBtn.selected == YES) {
+                self.attentionBtn.selected = NO;
+                [relation removeObject:goodsobj];
+                [goodsRelation removeObject:current];
+                [goodsobj saveInBackground];
+                [current saveInBackground];
+
+                NSString *count = self.attentionBtn.titleLabel.text;
+                NSInteger countValue = [count intValue];
+                [self.attentionBtn setTitle:[NSString stringWithFormat:@"%ld",countValue - 1] forState:UIControlStateNormal];
+
+            }else{
+                self.attentionBtn.selected = YES;
+                [relation addObject:goodsobj];
+                [goodsRelation addObject:current];
+                [goodsobj saveInBackground];
+                [current saveInBackground];
+                NSString *count = self.attentionBtn.titleLabel.text;
+                NSInteger countValue = [count intValue];
+                [self.attentionBtn setTitle:[NSString stringWithFormat:@"%ld",countValue + 1] forState:UIControlStateNormal];
+            }
+            
+        }
+    }
+    
+}
+
+
+
 
 
 - (void)setData
 {
     
-    [self.nameButton setTitle:self.goodsList.username forState:UIControlStateNormal];
+    [self.nameButton setTitle:self.goodsList.user.nickName forState:UIControlStateNormal];
     
     self.localLabel.text = @"金水区";
     self.timeLabel.text = self.goodsList.createdTime;
     self.localLabel.text = self.goodsList.locationString;
     self.descLabel.text = [self.goodsList.title stringByAppendingFormat:@"，%@",self.goodsList.text];
     self.priceLabel.text = [NSString stringWithFormat:@"￥%@",self.goodsList.price];
-    self.iconView.image = [UIImage imageWithData:self.goodsList.iconData];
-    
+    [self checkCommentCount];
+    [self checkFavorite];
+    AVFile *file = [AVFile fileWithURL:_goodsList.user.pic_url];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        self.iconView.image =[UIImage imageWithData:data];
+    }];
     
     CGFloat oneImageY = 0;
     CGFloat oneImageW = 108;
     CGFloat oneImageH = 108;
     [self.imageScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    self.imageScrollView.contentSize = CGSizeMake((oneImageW + 5) * self.goodsList.pictures.count, oneImageH );
-    for (int i = 0; i < self.goodsList.pictures.count; i++) {
+    self.imageScrollView.contentSize = CGSizeMake((oneImageW + 5) * self.goodsList.pic_urls.count, oneImageH );
+    for (int i = 0; i < self.goodsList.pic_urls.count; i++) {
         UIImageView *oneImage = [[UIImageView alloc] init];
         oneImage.contentMode = UIViewContentModeScaleAspectFill;
         oneImage.clipsToBounds = YES;
         oneImage.frame = CGRectMake((oneImageW + 5) * i, oneImageY, oneImageW, oneImageH);
         [self.imageScrollView addSubview:oneImage];
-        AVFile *imagefile = self.goodsList.pictures[i];
-        [imagefile getThumbnail:YES width:300 height:300 withBlock:^(UIImage *image, NSError *error) {
+        AVFile *imagefile = [AVFile fileWithURL:self.goodsList.pic_urls[i]];
+       
+
+        [imagefile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            UIImage *image = [UIImage imageWithData:data];
+             NSLog(@"----------%d-----------", imagefile.isDataAvailable);
             oneImage.image = image;
         }];
         
     }
     
 }
+
+- (BOOL)whetherLogin
+{
+    if ([AVUser currentUser]) {
+        return YES;
+    }else
+    {
+        [self.delegate btnClickedWithNoLogin];
+        return NO;
+    }
+}
+
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     

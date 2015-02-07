@@ -26,12 +26,25 @@
         self.user = [PTUser userWithDict:dict[@"author"]];
         self.replyUser = [PTUser userWithDict:dict[@"replyTo"]];
         NSDictionary *dateDcit = dict[@"createdAt"];
-        NSLog(@"1111^^^>>>,%@",dict[@"createdAt"]);
-        self.createdAt = dateDcit[@"iso"];
+
+        self.createdAt = [self changeDate:dict[@"createdAt"][@"iso"]];
         NSLog(@"2222^^^>>>,%@",self.createdAt);
         
     }
     return self;
+}
+
+
+- (NSDate *)changeDate:(NSString *)dateStr
+{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = @"yyyy-MM-dd'T'HH:mm:s.SSSZ";
+    
+    fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    
+    NSDate *date = [fmt dateFromString:dateStr];
+    return date;
+    
 }
 
 - (NSString *)createdTime
@@ -43,7 +56,8 @@
     
     fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     
-    NSDate *createdDate = [fmt dateFromString:_createdAt];
+//    NSDate *createdDate = [fmt dateFromString:_createdAt];
+    NSDate *createdDate = _createdAt;
     
     
     // 2..判断微博发送时间 和 现在时间 的差距

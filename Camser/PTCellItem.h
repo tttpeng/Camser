@@ -12,6 +12,7 @@
 @interface PTCellItem : NSObject
 
 @property (nonatomic,weak) NSData *icon;
+@property (nonatomic,weak) NSString *image;
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *backImage;
 

@@ -34,7 +34,7 @@
     self.bigScrollView = bigScrollView;
     bigScrollView.contentOffset = CGPointMake(_currentPage * bigScrollView.frame.size.width, 0);
     for (int i = 0; i < self.pictures.count; i ++) {
-        AVFile *imageFile = self.pictures[i];
+        AVFile *imageFile = [AVFile fileWithURL:self.pictures[i]];
         NSData *data = [imageFile getData];
         UIImage * image = [UIImage imageWithData:data];
         PTImageScrollView *imageScrollView = [PTImageScrollView imageScrollViewWith:image andFrame:CGRectMake(i * bigScrollView.frame.size.width, 0, bigScrollView.frame.size.width, bigScrollView.frame.size.height)];

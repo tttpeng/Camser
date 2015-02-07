@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong)PTUser *replyUser;
 
-@property (nonatomic,copy)NSString *createdAt;
+@property (nonatomic,copy)NSDate *createdAt;
 
 
 @property (nonatomic, copy, readonly) NSString *createdTime;

@@ -13,12 +13,14 @@
 #import "PTGoodsListCell.h"
 #import "MJRefresh.h"
 #import "PTComment.h"
+#import "UIImage+MJ.h"
 #import "PTDetailViewController.h"
 
-@interface PTGoodsListController ()
+@interface PTGoodsListController ()<PTGoodsListCellDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *goods;
 @property (nonatomic, assign) NSInteger total;
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
 @property (nonatomic, strong) AVQuery *query;
 @end
 
@@ -51,8 +53,8 @@
 {
     NSMutableArray *allGood = [NSMutableArray array];
     for (AVObject *avobj in AVArray) {
-        AVUser *goodUser = [avobj objectForKey:@"author"];
-        PTGoodsList *goodList = [PTGoodsList goodsWithDict:(NSDictionary *)avobj User:goodUser];
+        NSDictionary *dict = [avobj dictionaryForObject];
+        PTGoodsList *goodList = [PTGoodsList goodsWithDict:dict];
         [allGood addObject:goodList];
     }
     return allGood;
@@ -153,6 +155,7 @@
         query.cachePolicy = kPFCachePolicyNetworkElseCache;
         [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
             array = [NSMutableArray arrayWithArray:[self goodsArrayWithAVObjects:objects]];
+            self.loadingView.hidden = YES;
         }];
     }else{
         query.cachePolicy = kPFCachePolicyCacheElseNetwork;
@@ -160,6 +163,7 @@
             array =  [NSMutableArray arrayWithArray:[self goodsArrayWithAVObjects:objects]];
             self.goods = array;
             [self.tableView reloadData];
+            self.loadingView.hidden = YES;
         }];
         
     }
@@ -180,7 +184,7 @@
     
     // 2.设置图片和文字
     btn.userInteractionEnabled = NO;
-    //    [btn setBackgroundImage:[UIImage resizedImageWithName:@"timeline_new_status_background"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage resizedImageWithName:@"timeline_new_status_background"] forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
     if (count) {
@@ -232,6 +236,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     PTGoodsListCell *cell = [PTGoodsListCell cellWithTableView:tableView];
+    cell.delegate = self;
     cell.goodsList = self.goods[indexPath.section];
     
     return cell;
@@ -258,8 +263,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if (sender) {
+        PTDetailViewController *detailVc = segue.destinationViewController;
+        detailVc.goods = sender;
+    }
+    
+}
 
-    PTDetailViewController *detailVc = segue.destinationViewController;
-    detailVc.goods = sender;
+- (void)btnClickedWithNoLogin
+{
+    [self performSegueWithIdentifier:@"list2login" sender:nil];
 }
 @end

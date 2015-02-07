@@ -60,6 +60,12 @@
 #define COCOAPODS_VERSION_MINOR_MBProgressHUD 9
 #define COCOAPODS_VERSION_PATCH_MBProgressHUD 0
 
+// MJRefresh
+#define COCOAPODS_POD_AVAILABLE_MJRefresh
+#define COCOAPODS_VERSION_MAJOR_MJRefresh 0
+#define COCOAPODS_VERSION_MINOR_MJRefresh 0
+#define COCOAPODS_VERSION_PATCH_MJRefresh 1
+
 // QBImagePickerController
 #define COCOAPODS_POD_AVAILABLE_QBImagePickerController
 #define COCOAPODS_VERSION_MAJOR_QBImagePickerController 2

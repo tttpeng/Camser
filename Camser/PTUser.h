@@ -12,9 +12,11 @@
 
 @property (nonatomic,copy)NSString *objectId;
 
-@property (nonatomic,strong)UIImage *imageFile;
+@property (nonatomic,copy)NSString *pic_url;
 
 @property (nonatomic,copy)NSString *nickName;
+
+@property (nonatomic,copy)NSString *userId;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

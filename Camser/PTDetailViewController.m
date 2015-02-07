@@ -22,6 +22,7 @@
 @interface PTDetailViewController ()<UITableViewDelegate,UITableViewDataSource,PTDetailInfoViewDelegate,UIGestureRecognizerDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *messageView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageImage;
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
 
 @property (weak, nonatomic) IBOutlet UIView *postCommentView;
 @property (weak, nonatomic) IBOutlet UITextView *commentTextView;
@@ -49,14 +50,22 @@
     self.tableView.tableHeaderView = view;
     self.headerView = view;
     [self checkFavorite];
-    [self checkFavoriteCount];
+//    [self checkFavoriteCount];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     self.tableView.backgroundColor = [UIColor colorWithRed:0.941 green:0.945 blue:0.970 alpha:1.000];
     
     _commentTextView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self setupRefresh];
+    
+//    self.loadingView.hidden = YES;
 }
 
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [self loadComments];
+    [self checkCommentCount];
+}
 /**
  *  集成刷新控件
  */
@@ -64,8 +73,8 @@
 {
     
     // 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [self.tableView addFooterWithTarget:self action:@selector(commentFooterRereshing)];
-    
+    [self.tableView addFooterWithTarget:self action:@selector(loadComments)];
+    [self.tableView footerBeginRefreshing];
 
     self.tableView.footerPullToRefreshText = @"上拉可以加载更多数据了";
     self.tableView.footerReleaseToRefreshText = @"松开马上加载更多数据了";
@@ -86,6 +95,32 @@
     [self.tableView footerEndRefreshing];
 }
 
+- (void)checkCommentCount
+{
+    PTGoodsList *goods = self.goods;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    query.cachePolicy = kPFCachePolicyCacheElseNetwork;
+    [query getObjectInBackgroundWithId:goods.objectId block:^(AVObject *object, NSError *error) {
+        AVObject *goodsObj = object;
+        AVRelation *relation =[goodsObj relationforKey:@"comment"];
+        AVRelation *attendRelation = [goodsObj relationforKey:@"likedUser"];
+        AVQuery *queryAttend = [attendRelation query];
+        AVQuery *queryC = [relation query];
+        [queryC countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+                 [self.CommentPostBtn setTitle:[NSString stringWithFormat:@"%ld",(long)number] forState:UIControlStateNormal];
+        }];
+        [queryAttend countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+
+             [self.favoriteButton setTitle:[NSString stringWithFormat:@"%ld",(long)number] forState:UIControlStateNormal];
+        }];
+   
+       
+        
+        
+    }];
+}
+
+
 - (void)loadComments
 {
     PTGoodsList *goods = self.goods;
@@ -95,50 +130,88 @@
         PTComment *lastComment = [self.comments lastObject];
         NSDate *lastdate;
         if (lastComment) {
-            NSString *lastdateStr = lastComment.createdAt;
-            NSLog(@"str ----- %@",lastdateStr);
-            NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-            fmt.dateFormat = @"yyyy-MM-dd'T'HH:mm:s.SSSZ";
-            
-            fmt.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            lastdate = [fmt dateFromString:lastdateStr];
+            lastdate = lastComment.createdAt;
         }else
         {
-                lastdate = self.goods.createdAt;
+            lastdate = [NSDate date];
         }
-     
-        AVObject *goodsObj = object;
+                AVObject *goodsObj = object;
         AVRelation *relation =[goodsObj relationforKey:@"comment"];
         
         AVQuery *queryC = [relation query];
         NSLog(@"lastdate:------%@",lastdate);
-        [queryC whereKey:@"createdAt" greaterThan:lastdate];
-        [queryC orderByAscending:@"createdAt"];
+        [queryC whereKey:@"createdAt" lessThan:lastdate];
+        [queryC orderByDescending:@"createdAt"];
         [queryC includeKey:@"author"];
         [queryC includeKey:@"replyTo"];
+        queryC.limit = 5;
         queryC.cachePolicy = kPFCachePolicyNetworkElseCache;
         [queryC findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            [self commentsFrameArrayWidthAvojArray:objects];
-        
+            [self.comments addObjectsFromArray:[self commentsFrameArrayWidthAvojArray:objects]];
+            [self setCommentFrame];
+            [self.tableView reloadData];
+            self.loadingView.hidden = YES;
+            [self.tableView footerEndRefreshing];
         }];
     }];
 }
 
+- (void)loadingMore
+{
+    PTGoodsList *goods = self.goods;
+    AVQuery *query = [AVQuery queryWithClassName:@"GoodsList"];
+    query.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [query getObjectInBackgroundWithId:goods.objectId block:^(AVObject *object, NSError *error) {
+        PTComment *firstComment = [self.comments firstObject];
+        NSDate *firstDate;
+        if (firstComment) {
+            firstDate = firstComment.createdAt;
+        }else
+        {
+            firstDate = [NSDate date];
+        }
+        
+        AVObject *goodsObj = object;
+        AVRelation *relation =[goodsObj relationforKey:@"comment"];
+        
+        AVQuery *queryC = [relation query];
+        NSLog(@"lastdate:------%@",firstDate);
+        [queryC whereKey:@"createdAt" greaterThan:firstDate];
+        [queryC orderByDescending:@"createdAt"];
+        [queryC includeKey:@"author"];
+        [queryC includeKey:@"replyTo"];
+        queryC.cachePolicy = kPFCachePolicyNetworkElseCache;
+        [queryC findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            NSArray *comments = [self commentsFrameArrayWidthAvojArray:objects];
+            NSRange range=NSMakeRange(0, comments.count);
+            NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:range];
+            [self.comments insertObjects:comments atIndexes:indexSet];
+            [self setCommentFrame];
+            [self.tableView reloadData];
+        }];
+    }];
+    
+}
 
-- (void)commentsFrameArrayWidthAvojArray:(NSArray *)array
+- (void)setCommentFrame
+{
+    _commentFrameArray = nil;
+    for (PTComment *comment in _comments) {
+        PTCommentFrame *cf = [[PTCommentFrame alloc]init];
+        cf.goodsComment = comment;
+        [self.commentFrameArray addObject:cf];
+    }
+}
+
+
+- (NSArray *)commentsFrameArrayWidthAvojArray:(NSArray *)array
 {   NSMutableArray *commentArray = [NSMutableArray array];
     for (AVObject *oneComment in array) {
         NSDictionary *dict = [oneComment dictionaryForObject];
         PTComment *comment = [PTComment commentWithDict:dict];
-        PTCommentFrame *cFrame = [[PTCommentFrame alloc] init];
-        cFrame.goodsComment = comment;
-        [self.commentFrameArray addObject:cFrame];
         [commentArray addObject:comment];
-        [self.comments addObjectsFromArray:commentArray];
-        [self.CommentPostBtn setTitle:[NSString stringWithFormat:@"%lu",(unsigned long)_commentFrameArray.count]  forState:UIControlStateNormal];
-
-        [self.tableView reloadData];
     }
+    return commentArray;
 }
 
 - (IBAction)hideKeyboard {
@@ -154,7 +227,6 @@
 {
     if (_commentFrameArray == nil) {
         _commentFrameArray = [NSMutableArray array];
-        [self loadComments];
     }
     return _commentFrameArray;
 }
@@ -180,7 +252,6 @@
 }
 
 
-
 -(void)checkFavorite
 {
     AVUser *current = [AVUser currentUser];
@@ -199,14 +270,6 @@
 
 }
 
-
-
-
-
-
-
-
-
 - (IBAction)favoriteButton:(id)sender {
     if ([self whetherLogin]) {
         AVUser *current = [AVUser currentUser];
@@ -216,21 +279,28 @@
         AVObject *goodsobj = [query getObjectWithId:goods.objectId error:&error];
         NSLog(@"%@",error);
         AVRelation *relation = [current relationforKey:@"likeGoods"];
+        AVRelation *goodsRelation = [goodsobj relationforKey:@"likedUser"];
         if (current) {
             if (self.favoriteButton.selected == YES) {
                 self.favoriteButton.selected = NO;
                 [relation removeObject:goodsobj];
+                [goodsRelation removeObject:current];
+                [goodsobj saveInBackground];
                 [current saveInBackground];
                 [self checkFavoriteCount];
-                [MBProgressHUD showSuccess:@"已经取消收藏"];
+                NSString *count = self.favoriteButton.titleLabel.text;
+                NSInteger countValue = [count intValue];
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%ld",countValue - 1] forState:UIControlStateNormal];
+                
             }else{
                 self.favoriteButton.selected = YES;
                 [relation addObject:goodsobj];
-                [current saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                    [MBProgressHUD showSuccess:@"已经成功收藏啦~~"];
-                    [self checkFavoriteCount];
-                }];
-                
+                [goodsRelation addObject:current];
+                [goodsobj saveInBackground];
+                [current saveInBackground];
+                NSString *count = self.favoriteButton.titleLabel.text;
+                NSInteger countValue = [count intValue];
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%ld",countValue + 1] forState:UIControlStateNormal];
             }
             
         }
@@ -321,6 +391,8 @@
     [self loadComments];
     _replyUser = nil;
     self.commentTextView.text = nil;
+    [self loadingMore];
+     [self checkCommentCount];
     [MBProgressHUD hideHUD];
 }
 
@@ -333,6 +405,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PTComment *comment = self.comments[indexPath.row];
+    NSLog(@"%@,%@",[AVUser currentUser].objectId,comment.user.objectId);
     if (![[AVUser currentUser].objectId isEqual:comment.user.objectId]) {
         [self postCommentBtn:nil];
         AVQuery * query =[AVQuery queryWithClassName:@"_User"];

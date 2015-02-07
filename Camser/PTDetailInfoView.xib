@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
@@ -157,50 +158,21 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vxD-JA-F3r">
-                    <rect key="frame" x="-7" y="770" width="375" height="162"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzP-0k-8b9" userLabel="price">
+                    <rect key="frame" x="258" y="319" width="107" height="106"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="12333311" translatesAutoresizingMaskIntoConstraints="NO" id="mtn-4F-gxF">
-                            <rect key="frame" x="11" y="-1" width="352" height="149"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pricelabel" translatesAutoresizingMaskIntoConstraints="NO" id="AUF-DG-avP">
+                            <rect key="frame" x="-3" y="-4" width="110" height="110"/>
+                            <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFn-ZG-ras">
-                            <rect key="frame" x="21" y="44" width="329" height="67"/>
-                            <string key="text">乒乓球拍，横拍双面反胶，体育乒乓球课必备。我在大二的时候在绝望坡买的，完全符合课堂要求，当时只用了一学期，然后就再也没用过，基本上八成新。买的时候价格是60元，现在只卖30元，附送5个乒乓球，可小刀。选乒乓球课的学弟学妹看过来哦~免得你跑老远花高价买，本人可以送货上门~详询QQ：724289959，加好友请备注&amp;ldquo;二手市场&amp;rdquo;呦~另，如果专业合适，学长送几本教科书也是可以的~有木有觉得超值</string>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.74840198863636365" green="0.69085241611757864" blue="0.38292762585250562" alpha="1" colorSpace="calibratedRGB"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="￥" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cr-l3-MWL">
+                            <rect key="frame" x="39" y="20" width="26" height="29"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rd2-VK-MjB">
-                            <rect key="frame" x="294" y="118" width="60" height="30"/>
-                            <state key="normal" title="查看全部">
-                                <color key="titleColor" red="0.93410669189999995" green="0.93410669189999995" blue="0.93410669189999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Phone：18600457706" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okP-mw-CTk">
-                            <rect key="frame" x="204" y="12" width="224" height="24"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.74840198859999996" green="0.69085241610000003" blue="0.38292762590000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="highlightedColor" red="0.74840198859999996" green="0.69085241610000003" blue="0.38292762590000001" alpha="1" colorSpace="calibratedRGB"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QQ：355155568" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9r-NT-1UD">
-                            <rect key="frame" x="75" y="12" width="224" height="24"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.74840198859999996" green="0.69085241610000003" blue="0.38292762590000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="highlightedColor" red="0.74840198859999996" green="0.69085241610000003" blue="0.38292762590000001" alpha="1" colorSpace="calibratedRGB"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gzP-0k-8b9" userLabel="price">
-                    <rect key="frame" x="236" y="322" width="200" height="111"/>
-                    <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="red-14" translatesAutoresizingMaskIntoConstraints="NO" id="AUF-DG-avP">
-                            <rect key="frame" x="0.0" y="8" width="131" height="107"/>
-                            <rect key="contentStretch" x="0.15000000000000002" y="0.20000000000000001" width="0.39999999999999963" height="0.49999999999999994"/>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="480" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nNH-Kl-Jgj">
-                            <rect key="frame" x="24" y="25" width="82" height="48"/>
+                            <rect key="frame" x="8" y="44" width="87" height="26"/>
                             <fontDescription key="fontDescription" type="system" pointSize="23"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -211,11 +183,6 @@
             </subviews>
             <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803926" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="vxD-JA-F3r"/>
-                </mask>
-            </variation>
             <connections>
                 <outlet property="DetailDescVIew2" destination="rQ4-4w-sII" id="z5Q-YF-1p9"/>
                 <outlet property="DetailDescView" destination="ueQ-Ud-0M5" id="ZOm-0o-y5T"/>
@@ -233,11 +200,10 @@
         </view>
     </objects>
     <resources>
-        <image name="12333311" width="833" height="370"/>
         <image name="ceshitouxiang" width="640" height="640"/>
         <image name="cm2_act_post_bg" width="15" height="17"/>
         <image name="icon_location1" width="60" height="71"/>
-        <image name="red-14" width="128" height="128"/>
+        <image name="pricelabel" width="500" height="500"/>
         <image name="red-comment" width="128" height="128"/>
     </resources>
 </document>

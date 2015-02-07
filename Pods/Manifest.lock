@@ -20,11 +20,12 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AVOSCloud (2.6.10)
-  - AVOSCloudSNS (2.6.10):
+  - AVOSCloud (2.6.10.1)
+  - AVOSCloudSNS (2.6.10.1):
     - AVOSCloud
   - iOS-blur (0.0.5)
   - MBProgressHUD (0.9)
+  - MJRefresh (0.0.1)
   - QBImagePickerController (2.2.2)
   - SDWebImage (3.7.1):
     - SDWebImage/Core (= 3.7.1)
@@ -36,15 +37,17 @@ DEPENDENCIES:
   - AVOSCloudSNS
   - iOS-blur
   - MBProgressHUD
+  - MJRefresh
   - QBImagePickerController
   - SDWebImage
 
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
-  AVOSCloud: f6bda519d035a21ceacab049184aa5cdb9e1177f
-  AVOSCloudSNS: 9cc4d5b13a9b94614d90efa7daa3eb55eda367a8
+  AVOSCloud: 0fda3454a4c289373967caf267e1ca22048f4fc4
+  AVOSCloudSNS: fc7fb0b36775133af1bc72e35778651b256ecb4c
   iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
+  MJRefresh: 02638d90855109026754562b7507e5c5eabfcc65
   QBImagePickerController: f5498a84e86a171bf9266c91feb659bf9fc91f4b
   SDWebImage: 116e88633b5b416ea0ca4b334a4ac59cf72dd38d
 

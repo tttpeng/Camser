@@ -11,6 +11,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import "PTImageScrollView.h"
 #import "UIImage+MJ.h"
+#import "PTUser.h"
 #import "PTBigViewController.h"
 
 
@@ -34,13 +35,16 @@
 - (void)setGoods:(PTGoodsList *)goods
 {
     _goods = goods;
-    NSData *imageData = goods.iconData;
-    UIImage *icon = [UIImage imageWithData:imageData];
-    self.iconVIew.image = icon;
+    AVFile *file = [AVFile fileWithURL:goods.user.pic_url];
+    [file getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *icon = [UIImage imageWithData:data];
+        self.iconVIew.image = icon;
+    }];
+   
     
-    self.priceLabel.text = [NSString stringWithFormat:@"￥%@",goods.price];
+    self.priceLabel.text = [NSString stringWithFormat:@"%@",goods.price];
     
-    self.username.text = goods.username;
+    self.username.text = goods.user.nickName;
  
     self.locationLabel.text = goods.locationString;
     
@@ -62,23 +66,27 @@
 - (void)setImageList
 {
 
-    int count = (int)self.goods.pictures.count;
+    int count = (int)self.goods.pic_urls.count;
     CGFloat imageViewW = self.frame.size.width;
     self.pageControl.numberOfPages = count;
     self.imageScroll.contentSize = CGSizeMake( count * imageViewW , imageViewW);
     for (int i = 0; i < count; i ++) {
-        AVFile *imageFile = self.goods.pictures[i];
-        NSData *data = [imageFile getData];
-        UIImage *image = [UIImage imageWithData:data];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake(imageViewW * i, 0, imageViewW, imageViewW);
-        imageView.userInteractionEnabled = YES;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(skip2big:)];
-        imageView.tag = i;
-        [imageView addGestureRecognizer:tap];
-        [self.imageScroll addSubview:imageView];
+        AVFile *imageFile = [AVFile fileWithURL:self.goods.pic_urls[i]];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            UIImage *image = [UIImage imageWithData:data];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            imageView.frame = CGRectMake(imageViewW * i, 0, imageViewW, imageViewW);
+            imageView.userInteractionEnabled = YES;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            imageView.tag = i;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(skip2big:)];
+            [imageView addGestureRecognizer:tap];
+            [self.imageScroll addSubview:imageView];
+        }];
+        
+        
+        
     }
 }
 
@@ -86,7 +94,7 @@
 {
     PTBigViewController *vc = [[PTBigViewController alloc]init];
     vc.currentPage = (int)gesture.view.tag;
-    vc.pictures = self.goods.pictures;
+    vc.pictures = self.goods.pic_urls;
     [self.delegate skip2bigViewController:vc];
 }
 
